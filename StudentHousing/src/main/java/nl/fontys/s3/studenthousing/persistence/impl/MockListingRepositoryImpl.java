@@ -17,11 +17,39 @@ public class MockListingRepositoryImpl implements ListingRepository {
 
     public MockListingRepositoryImpl() {
         this.listingEntities = new ArrayList<>();
+        listingEntities.add(ListingEntity.builder()
+            .id(NEXT_ID++)
+            .address("Coolstreet 1 a")
+            .city("Eindhoven")
+            .neighborhood("Neigh")
+            .surfaceArea(15)
+            .rent(300.50)
+            .build());
+
+        listingEntities.add(ListingEntity.builder()
+            .id(NEXT_ID++)
+            .address("Coolstreet 1 b")
+            .city("Eindhoven")
+            .description("cool house")
+            .neighborhood("Neigh")
+            .surfaceArea(15)
+            .rent(300.50)
+            .build());
+
+        listingEntities.add(ListingEntity.builder()
+            .id(NEXT_ID++)
+            .address("Coolstreet 1 c")
+            .city("Eindhoven")
+            .neighborhood("Neigh")
+            .surfaceArea(15)
+            .rent(300.50)
+            .build());
     }
 
     @Override
     public List<ListingEntity> getActiveListings(int offset) {
-        return listingEntities.subList(offset, offset + RANGE);
+        int range = listingEntities.size();
+        return listingEntities;
     }
 
     @Override
