@@ -2,8 +2,11 @@ package nl.fontys.s3.studenthousing.controller;
 
 import lombok.AllArgsConstructor;
 import nl.fontys.s3.studenthousing.business.converter.ListingConverter;
+import nl.fontys.s3.studenthousing.business.manager.ListingManager;
+import nl.fontys.s3.studenthousing.business.manager.impl.ListingManagerImpl;
 import nl.fontys.s3.studenthousing.domain.Listing;
-import nl.fontys.s3.studenthousing.domain.responses.GetActiveListingsResponse;
+import nl.fontys.s3.studenthousing.domain.request.GetActiveListingsRequest;
+import nl.fontys.s3.studenthousing.domain.response.GetActiveListingsResponse;
 import nl.fontys.s3.studenthousing.persistence.ListingRepository;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.http.ResponseEntity;
@@ -20,26 +23,23 @@ import java.util.Optional;
 @RequestMapping("/listings")
 public class ListingController {
 
-    private ListingRepository repository;
+    private ListingManagerImpl listingManager;
 
     @GetMapping
     public ResponseEntity<GetActiveListingsResponse> getActiveListings(){
-        List<ListingEntity> results = repository.getActiveListings(0);
-
-        final GetActiveListingsResponse response = new GetActiveListingsResponse();
-        response.setListings(results.stream()
-                .map(ListingConverter::convert)
-                .toList());
-
+        GetActiveListingsRequest request = GetActiveListingsRequest.builder()
+                .build();
+        GetActiveListingsResponse response = listingManager.getActiveListings(request);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Listing> getListing(@PathVariable("id") long id){
-        Optional<Listing> listing = repository.getById(id).map(ListingConverter::convert);
+        Optional<Listing> listing = listingManager.getListing(id);
         if(listing.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(listing.get());
     }
+
 }

@@ -21,9 +21,11 @@ public class MockListingRepositoryImpl implements ListingRepository {
             .id(NEXT_ID++)
             .address("Coolstreet 1 a")
             .city("Eindhoven")
+            .description("very cool house")
             .neighborhood("Neigh")
             .surfaceArea(15)
             .rent(300.50)
+            .isActive(true)
             .build());
 
         listingEntities.add(ListingEntity.builder()
@@ -34,22 +36,24 @@ public class MockListingRepositoryImpl implements ListingRepository {
             .neighborhood("Neigh")
             .surfaceArea(15)
             .rent(300.50)
+            .isActive(false)
             .build());
 
         listingEntities.add(ListingEntity.builder()
             .id(NEXT_ID++)
             .address("Coolstreet 1 c")
             .city("Eindhoven")
+            .description("great house")
             .neighborhood("Neigh")
             .surfaceArea(15)
             .rent(300.50)
+            .isActive(true)
             .build());
     }
 
     @Override
     public List<ListingEntity> getActiveListings(int offset) {
-        int range = listingEntities.size();
-        return listingEntities;
+        return listingEntities.stream().filter(ListingEntity::getIsActive).toList();
     }
 
     @Override

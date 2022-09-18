@@ -13,4 +13,5 @@ public class ListingEntity {
     private String description;
     private Integer surfaceArea; // In square meters
     private Double rent; // In Euro's
+    private Boolean isActive;
 }

@@ -10,9 +10,11 @@ public class ListingConverter {
                 .id(listing.getId())
                 .address(listing.getAddress())
                 .city(listing.getCity())
+                .description(listing.getDescription())
                 .neighborhood(listing.getNeighborhood())
                 .surfaceArea(listing.getSurfaceArea())
                 .rent(listing.getRent())
+                .isActive(listing.getIsActive())
                 .build();
     }
 }
