@@ -1,0 +1,18 @@
+@startuml "Sequence Diagram"
+Customer -> WebApp: Log in to website
+WebApp -> LoginAuth: authorizeCreds()
+alt successful case
+    LoginAuth -> WebApp : authorization succesful
+    WebApp -> UserController : checkRepeatCustomer()
+    UserController -> WebApp : return result
+    WebApp -> MenuController : retrieveMenu(boolean : isRepeat)
+        
+    alt if repeat customer
+        MenuController -> MenuController : increase menu prices
+    end
+    MenuController -> WebApp : showMenu()
+else
+    LoginAuth -> WebApp : authorization failed
+    WebApp -> Customer : login failed
+end
+@enduml

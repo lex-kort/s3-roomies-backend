@@ -1,4 +1,0 @@
-- genereren email voor nieuwe kamers voor aangemelde students (maandelijks? wekelijks?)
-- verificatie nieuwe accounts (kvk / sheerid / etc)
-- pdf rapportage in relatie tot earnings? performance?
-- 
