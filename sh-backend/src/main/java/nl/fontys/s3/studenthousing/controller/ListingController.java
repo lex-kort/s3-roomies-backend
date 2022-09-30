@@ -6,21 +6,21 @@ import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.domain.request.GetActiveListingsRequest;
 import nl.fontys.s3.studenthousing.domain.response.GetActiveListingsResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/listings")
+@RequestMapping("/api/listings")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ListingController {
 
     private ListingManagerImpl listingManager;
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000/listings", allowedHeaders = "*")
+
     public ResponseEntity<GetActiveListingsResponse> getActiveListings(){
         GetActiveListingsRequest request = GetActiveListingsRequest.builder()
                 .build();
