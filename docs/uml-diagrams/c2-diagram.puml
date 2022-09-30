@@ -1,23 +1,30 @@
 @startuml "C2 Diagram"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+LAYOUT_WITH_LEGEND()
+
 AddRelTag("dashedLine", $lineStyle=DashedLine())
 
 Person(student, "Student", "A person seeking housing")
+Person(landlord, "Landlord", "A person advertising and managing their listings")
 
 System_Boundary(c2,  "Student Housing System", "Software System"){
-    Container(web_app, "Web Application", "Java and Spring MVC", "Delivers the content")
+    Container(web_app, "Web Application", "Java and Spring MVC", "Delivers the content from the backend") 
     Container(sp_app, "Single-Page Application", "JavaScript and React", "Provides all of the functionality related to listings, responding, and messaging")
     Container(api_app, "API Application", "Java and Spring MVC", "Provides listing functionality via JSON / HTTPS")
     ContainerDb(db, "Database", "SQL", "Holds user, listing, and messaging information")
-    Container(email_service, "Email Scheduler", "Java and Spring MVC")
 }
 
+Container_Ext(mail_serv, "E-mail System", "Software System", "Google's Gmail system")
 
-Rel(student, web_app, "Views and responds to listings")
+Rel(student, web_app, "Uses", "HTTPS") /'Visits studenthousing.com using'/
+Rel(student, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, and messages landlords using'/
+
+Rel(landlord, web_app, "Uses", "HTTPS") /'Visits studenthousing.com using'/
+Rel(landlord, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, and messages landlords using'/
+
 Rel_R(web_app, sp_app, "Delivers content to the student's web browser")
-Rel(student, sp_app, "Views listings, responds to listings, and messages landlords using")
 Rel(sp_app, api_app, "Makes API calls to", "JSON / HTTPS")
 Rel_L(api_app, db, "Reads from / writes to")
-Rel_L(email_service, api_app, "")
+Rel(api_app, mail_serv, "Sends e-mails using")
 @enduml
