@@ -24,7 +24,6 @@ public class ListingController {
 
     @GetMapping
     @CrossOrigin(origins = "http://localhost:3000/listings", allowedHeaders = "*")
-
     public ResponseEntity<GetActiveListingsResponse> getActiveListings(){
         GetActiveListingsRequest request = GetActiveListingsRequest.builder()
                 .build();

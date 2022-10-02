@@ -5,8 +5,8 @@ LAYOUT_WITH_LEGEND()
 
 AddRelTag("dashedLine", $lineStyle=DashedLine())
 
-Person(student, "Student", "A registered user seeking housing")
-Person(landlord, "Landlord", "A person advertising and managing their listings")
+Person(student, "Student", "A person seeking housing and managing communications with their landlord (if any)")
+Person(landlord, "Landlord", "A person advertising and managing their listings, managing responses, and managing communications with tenants")
 
 Container(web_app, "Student Housing System", "Software System", "Allows students to view listing information, respond to listings, and communicate with their landlord")
 Container_Ext(mail_serv, "E-mail System", "Software System", "Google's Gmail system")
