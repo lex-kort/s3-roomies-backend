@@ -1,18 +1,16 @@
 @startuml "C3 Diagram"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-LAYOUT_WITH_LEGEND()
-
-AddRelTag("dashedLine", $lineStyle=DashedLine())
-
 Container(sp_app, "Single-Page Application", "JavaScript and React", "Provides all of the functionality related to listings, responding, and messaging")
 
 System_Boundary(c3, "API Application", "Container"){
+    Container(ctrl_comms, "Communications Controller", "Spring MVC Rest Controller", "Utilizes websockets to live update messages between tenants and landlords")
     Container(ctrl_listings, "Listings Controller", "Spring MVC Rest Controller", "Retrieves listings and listing details for users to view")
     Container(ctrl_respond, "Response Controller", "Spring MVC Rest Controller", "Allows students to respond to listings")
     Container(ctrl_login, "Log In Controller", "Spring MVC Rest Controller", "Allows users to log in to the web app")
     Container(ctrl_accinfo, "Account Info Controller", "Spring MVC Rest Controller", "Allows users to view and modify their account information")
     
+    Container(comp_comms, "Communications Component", "Java and Spring MVC", "Stores and retrieves (past) messages")
     Container(comp_listings, "Listings Component", "Java and Spring MVC", "Responsible for CRUD'ing listings")
     Container(comp_responses, "Responses Component", "Java and Spring MVC", "Responsible for CRUD'ing responses")
     Container(comp_security, "Security Component", "Spring Bean", "Provides functionality related to logging in, changing user information, etc.")
@@ -24,11 +22,13 @@ System_Boundary(c3, "API Application", "Container"){
 ContainerDb(db, "Database", "MySQL", "Holds user, listing, and messaging information")
 Container_Ext(mail_serv, "E-mail System", "Software System", "Google's Gmail system")
 
+BiRel(sp_app, ctrl_comms, "Communicates using", "JSON / HTTPS / Websocket")
 Rel(sp_app, ctrl_login, "Makes API calls to", "JSON / HTTPS")
 Rel(sp_app, ctrl_listings, "Makes API calls to", "JSON / HTTPS")
 Rel(sp_app, ctrl_accinfo, "Makes API calls to", "JSON / HTTPS")
 Rel(sp_app, ctrl_respond, "Makes API calls to", "JSON / HTTPS")
 
+Rel(ctrl_comms, comp_comms, "Uses")
 Rel(ctrl_login, comp_security, "Uses")
 Rel(ctrl_accinfo, comp_security, "Uses")
 Rel(ctrl_accinfo, comp_accsummary, "Uses")
@@ -37,11 +37,12 @@ Rel(comp_emailsched, comp_notiffacade, "Uses")
 Rel(ctrl_listings, comp_listings, "Uses")
 Rel(ctrl_respond, comp_responses, "Uses")
 
+Rel(comp_comms, db, "Reads from / writes to")
 Rel(comp_notiffacade, mail_serv, "Sends e-mails using")
-
 Rel(comp_security, db, "Reads from / writes to")
 Rel(comp_accsummary, db, "Reads from")
 Rel(comp_listings, db, "Reads from / writes to")
 Rel(comp_responses, db, "Reads from / writes to")
 
+SHOW_LEGEND()
 @enduml

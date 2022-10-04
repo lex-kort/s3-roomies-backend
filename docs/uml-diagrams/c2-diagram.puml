@@ -1,10 +1,6 @@
 @startuml "C2 Diagram"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-LAYOUT_WITH_LEGEND()
-
-AddRelTag("dashedLine", $lineStyle=DashedLine())
-
 Person(student, "Student", "A person seeking housing and managing communications with their landlord (if any)")
 Person(landlord, "Landlord", "A person advertising and managing their listings, managing responses, and managing communications with tenants")
 
@@ -26,5 +22,7 @@ Rel(landlord, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, a
 Rel_R(web_app, sp_app, "Delivers content to the student's web browser")
 Rel(sp_app, api_app, "Makes API calls to", "JSON / HTTPS")
 Rel_L(api_app, db, "Reads from / writes to")
-Rel(api_app, mail_serv, "Sends e-mails using")
+Rel_R(api_app, mail_serv, "Sends e-mails using")
+
+SHOW_LEGEND()
 @enduml
