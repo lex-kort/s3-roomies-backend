@@ -3,25 +3,22 @@
 
 Person(student, "Student", "A person seeking housing and managing communications with their landlord (if any)")
 Person(landlord, "Landlord", "A person advertising and managing their listings, managing responses, and managing communications with tenants")
+Person(admin, "Administrator", "A person verifying new registrants (both landlords and students) and can new administrator accounts")
 
 System_Boundary(c2,  "Student Housing System", "Software System"){
-    Container(web_app, "Web Application", "Java and Spring MVC", "Delivers the content from the backend") 
     Container(sp_app, "Single-Page Application", "JavaScript and React", "Provides all of the functionality related to listings, responding, and messaging")
-    Container(api_app, "API Application", "Java and Spring MVC", "Provides listing functionality via JSON / HTTPS")
-    ContainerDb(db, "Database", "SQL", "Holds user, listing, and messaging information")
+    Container(api_app, "API Application", "Java and Spring MVC", "Provides listing CRUD functionality, response CRUD functionality, user CRUD functionality, message handling, and notifications")
+    ContainerDb(db, "Database", "SQL", "Stores user info, listing info, response info, and message history")
 }
 
-Container_Ext(mail_serv, "E-mail System", "Software System", "Google's Gmail system")
+Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
 
-Rel(student, web_app, "Uses", "HTTPS") /'Visits studenthousing.com using'/
 Rel(student, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, and messages landlords using'/
-
-Rel(landlord, web_app, "Uses", "HTTPS") /'Visits studenthousing.com using'/
 Rel(landlord, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, and messages landlords using'/
+Rel(admin, sp_app, "Uses", "HTTPS")
 
-Rel_R(web_app, sp_app, "Delivers content to the student's web browser")
 Rel(sp_app, api_app, "Makes API calls to", "JSON / HTTPS")
-Rel_L(api_app, db, "Reads from / writes to")
+Rel(api_app, db, "Reads from / writes to")
 Rel_R(api_app, mail_serv, "Sends e-mails using")
 
 SHOW_LEGEND()

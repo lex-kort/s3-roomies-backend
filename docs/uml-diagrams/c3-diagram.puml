@@ -20,7 +20,7 @@ System_Boundary(c3, "API Application", "Container"){
 }
 
 ContainerDb(db, "Database", "MySQL", "Holds user, listing, and messaging information")
-Container_Ext(mail_serv, "E-mail System", "Software System", "Google's Gmail system")
+Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
 
 BiRel(sp_app, ctrl_comms, "Communicates using", "JSON / HTTPS / Websocket")
 Rel(sp_app, ctrl_login, "Makes API calls to", "JSON / HTTPS")
