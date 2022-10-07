@@ -1,23 +1,26 @@
 @startuml "C2 Diagram"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-AddRelTag("dashedLine", $lineStyle=DashedLine())
-
-Person(student, "Student", "A person seeking housing")
+Person(student, "Student", "A person seeking housing and managing communications with their landlord (if any)")
+Person(landlord, "Landlord", "A person advertising and managing their listings, managing responses, and managing communications with tenants")
+Person(admin, "Administrator", "A person verifying new registrants (both landlords and students) and can new administrator accounts")
 
 System_Boundary(c2,  "Student Housing System", "Software System"){
-    Container(web_app, "Web Application", "Java and Spring MVC", "Delivers the content")
     Container(sp_app, "Single-Page Application", "JavaScript and React", "Provides all of the functionality related to listings, responding, and messaging")
-    Container(api_app, "API Application", "Java and Spring MVC", "Provides listing functionality via JSON / HTTPS")
-    ContainerDb(db, "Database", "SQL", "Holds user, listing, and messaging information")
-    Container(email_service, "Email Scheduler", "Java and Spring MVC")
+    Container(api_app, "API Application", "Java and Spring MVC", "Provides listing CRUD functionality, response CRUD functionality, user CRUD functionality, message handling, and notifications")
+    ContainerDb(db, "Database", "SQL", "Stores user info, listing info, response info, and message history")
 }
 
+Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
 
-Rel(student, web_app, "Views and responds to listings")
-Rel_R(web_app, sp_app, "Delivers content to the student's web browser")
-Rel(student, sp_app, "Views listings, responds to listings, and messages landlords using")
+Rel(student, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, and messages landlords using'/
+Rel(landlord, sp_app, "Uses", "HTTPS") /'Views listings, responds to listings, and messages landlords using'/
+Rel(admin, sp_app, "Uses", "HTTPS")
+
 Rel(sp_app, api_app, "Makes API calls to", "JSON / HTTPS")
-Rel_L(api_app, db, "Reads from / writes to")
-Rel_L(email_service, api_app, "")
+Rel(api_app, db, "Reads from / writes to")
+Rel_L(api_app, mail_serv, "Sends e-mails using")
+Rel_U(mail_serv, student, "Sends e-mails to")
+
+SHOW_LEGEND()
 @enduml

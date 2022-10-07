@@ -1,13 +1,19 @@
 @startuml "C1 Diagram"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-AddRelTag("dashedLine", $lineStyle=DashedLine())
+Person(student, "Student", "A person seeking housing and managing communications with their landlord (if any)")
+Person(landlord, "Landlord", "A person advertising and managing their listings, managing responses, and managing communications with tenants")
+Person(admin, "Administrator", "A person verifying new registrants (both landlords and students) and can new administrator accounts")
 
-Person(student, "Student", "A registered user seeking housing")
-Container(web_app, "Student Housing System", "Software System", "Allows students to view listing information, respond to listings, and communicate with their landlord")
-Container_Ext(mail_serv, "E-mail System", "Software System", "Google's Gmail system")
+System(web_app, "Student Housing System", "Allows students to view listing information, respond to listings, and communicate with their landlord")
+Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
 
 Rel(student, web_app, "Views and responds to listings")
+Rel(landlord, web_app, "Manages owned listings, views messages from tenants")
+Rel(admin, web_app, "Verifies, approves, and denies new registrations")
+
 Rel_R(web_app, mail_serv, "Sends e-mail using")
 Rel_U(mail_serv, student, "Sends e-mails to")
+
+SHOW_LEGEND()
 @enduml
