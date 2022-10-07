@@ -18,10 +18,15 @@ System_Boundary(c3, "API Application", "Container"){
     Component(comp_accsummary, "Account Summary Component", "Spring MVC Rest Controller", "Retrieves non-sensitive account summary information")
     Component(comp_notiffacade, "Notification Facade", "Java and Spring MVC", "Responsible for handling notification system and communicating with external messaging services")
     Component(comp_emailsched, "Email Scheduler", "Java and Spring MVC", "Automatically sends emails to users that have signed up for receiving notifications")
+
+    Container(rep_comms, "Communications Repository", "JPA", "Performs CRUD actions on communication data")
+    Container(rep_listings, "Listings Repository", "JPA", "Performs CRUD actions on communication data")
+    Container(rep_responses, "Responses Repository", "JPA", "Performs CRUD actions on communication data")
+    Container(rep_accinfo, "Account Information Repository", "JPA", "Performs CRUD actions on communication data")
 }
 
 ContainerDb(db, "Database", "MySQL", "Holds user, listing, and messaging information")
-System_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
+Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
 
 BiRel(sp_app, ctrl_comms, "Communicates using", "JSON / HTTPS / Websocket")
 Rel(sp_app, ctrl_login, "Makes API calls to", "JSON / HTTPS")
@@ -38,12 +43,17 @@ Rel(comp_emailsched, comp_notiffacade, "Uses")
 Rel(ctrl_listings, comp_listings, "Uses")
 Rel(ctrl_respond, comp_responses, "Uses")
 
-Rel(comp_comms, db, "Reads from / writes to")
-Rel(comp_notiffacade, mail_serv, "Sends e-mails using")
-Rel(comp_security, db, "Reads from / writes to")
-Rel(comp_accsummary, db, "Reads from")
-Rel(comp_listings, db, "Reads from / writes to")
-Rel(comp_responses, db, "Reads from / writes to")
+Rel(comp_comms, rep_comms, "Uses")
+Rel(comp_listings, rep_listings, "Uses")
+Rel(comp_responses, rep_responses, "Uses")
+Rel(comp_accsummary, rep_accinfo, "Uses")
+Rel(comp_security, rep_accinfo, "Uses")
+
+Rel_D(rep_comms, db, "Reads from / writes to")
+Rel_D(comp_notiffacade, mail_serv, "Sends e-mails using")
+Rel_D(rep_accinfo, db, "Reads from / writes to")
+Rel_D(rep_listings, db, "Reads from / writes to")
+Rel_D(rep_responses, db, "Reads from / writes to")
 
 SHOW_LEGEND()
 @enduml
