@@ -19,7 +19,8 @@ Rel(admin, sp_app, "Uses", "HTTPS")
 
 Rel(sp_app, api_app, "Makes API calls to", "JSON / HTTPS")
 Rel(api_app, db, "Reads from / writes to")
-Rel_R(api_app, mail_serv, "Sends e-mails using")
+Rel_L(api_app, mail_serv, "Sends e-mails using")
+Rel_U(mail_serv, student, "Sends e-mails to")
 
 SHOW_LEGEND()
 @enduml

@@ -1,5 +1,6 @@
 @startuml "C3 Diagram"
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 Container(sp_app, "Single-Page Application", "JavaScript and React", "Provides all of the functionality related to listings, responding, and messaging")
 
@@ -10,17 +11,17 @@ System_Boundary(c3, "API Application", "Container"){
     Container(ctrl_login, "Log In Controller", "Spring MVC Rest Controller", "Allows users to log in to the web app")
     Container(ctrl_accinfo, "Account Info Controller", "Spring MVC Rest Controller", "Allows users to view and modify their account information")
     
-    Container(comp_comms, "Communications Component", "Java and Spring MVC", "Stores and retrieves (past) messages")
-    Container(comp_listings, "Listings Component", "Java and Spring MVC", "Responsible for CRUD'ing listings")
-    Container(comp_responses, "Responses Component", "Java and Spring MVC", "Responsible for CRUD'ing responses")
-    Container(comp_security, "Security Component", "Spring Bean", "Provides functionality related to logging in, changing user information, etc.")
-    Container(comp_accsummary, "Account Summary Component", "Spring MVC Rest Controller", "Retrieves non-sensitive account summary information")
-    Container(comp_notiffacade, "Notification Facade", "Java and Spring MVC", "Responsible for handling notification system and communicating with external messaging services")
-    Container(comp_emailsched, "Email Scheduler", "Java and Spring MVC", "Automatically sends emails to users that have signed up for receiving notifications")
+    Component(comp_comms, "Communications Component", "Java and Spring MVC", "Stores and retrieves (past) messages")
+    Component(comp_listings, "Listings Component", "Java and Spring MVC", "Responsible for CRUD'ing listings")
+    Component(comp_responses, "Responses Component", "Java and Spring MVC", "Responsible for CRUD'ing responses")
+    Component(comp_security, "Security Component", "Spring Bean", "Provides functionality related to logging in, changing user information, etc.")
+    Component(comp_accsummary, "Account Summary Component", "Spring MVC Rest Controller", "Retrieves non-sensitive account summary information")
+    Component(comp_notiffacade, "Notification Facade", "Java and Spring MVC", "Responsible for handling notification system and communicating with external messaging services")
+    Component(comp_emailsched, "Email Scheduler", "Java and Spring MVC", "Automatically sends emails to users that have signed up for receiving notifications")
 }
 
 ContainerDb(db, "Database", "MySQL", "Holds user, listing, and messaging information")
-Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
+System_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
 
 BiRel(sp_app, ctrl_comms, "Communicates using", "JSON / HTTPS / Websocket")
 Rel(sp_app, ctrl_login, "Makes API calls to", "JSON / HTTPS")

@@ -17,13 +17,12 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/listings")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin("http://localhost:3000")
 public class ListingController {
 
     private ListingManagerImpl listingManager;
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000/listings", allowedHeaders = "*")
     public ResponseEntity<GetActiveListingsResponse> getActiveListings(){
         GetActiveListingsRequest request = GetActiveListingsRequest.builder()
                 .build();
