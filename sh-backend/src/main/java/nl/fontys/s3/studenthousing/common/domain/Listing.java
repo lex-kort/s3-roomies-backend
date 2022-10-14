@@ -1,19 +1,26 @@
-package nl.fontys.s3.studenthousing.persistence.entity;
+package nl.fontys.s3.studenthousing.common.domain;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Builder
 @Getter
-public class ListingEntity {
+public class Listing {
     private Long id;
+    @Setter
     private String address;
+    @Setter
     private String city;
+    @Setter
     private String neighborhood;
+    @Setter
     private String description;
     private Integer surfaceArea; // In square meters
+    @Setter
     private Double rent; // In Euro's
+    @Setter
     private Boolean petsAllowed;
+    @Setter
     private Boolean isActive;
 }

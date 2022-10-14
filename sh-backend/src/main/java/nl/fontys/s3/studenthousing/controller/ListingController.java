@@ -1,43 +1,40 @@
 package nl.fontys.s3.studenthousing.controller;
 
-import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.business.manager.impl.ListingManagerImpl;
-import nl.fontys.s3.studenthousing.domain.Listing;
-import nl.fontys.s3.studenthousing.domain.request.GetActiveListingsRequest;
-import nl.fontys.s3.studenthousing.domain.response.GetActiveListingsResponse;
+import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.common.interfaces.ListingManager;
+import nl.fontys.s3.studenthousing.controller.converter.ListingConverterImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/listings")
 @CrossOrigin("http://localhost:3000")
 public class ListingController {
+    private ListingManager listingManager;
+    private ListingConverterImpl listingConverter;
 
-    private ListingManagerImpl listingManager;
+    public ListingController(ListingManager listingManager){
+        this.listingManager = listingManager;
+        listingConverter = new ListingConverterImpl();
+    }
 
     @GetMapping
-    public ResponseEntity<GetActiveListingsResponse> getActiveListings(){
-        GetActiveListingsRequest request = GetActiveListingsRequest.builder()
-                .build();
-        GetActiveListingsResponse response = listingManager.getActiveListings(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<List<Listing>> getActiveListings(@RequestParam(value = "minArea", required = false) Integer minArea,
+                                                           @RequestParam(value = "maxRent", required = false) Double maxRent,
+                                                           @RequestParam(value = "pets", required = false) Boolean petsAllowed,
+                                                           @RequestParam(value = "neighborhood", required = false) String neighborhood){
+        List<Listing> listings = listingManager.getActiveListings(minArea, maxRent, petsAllowed, neighborhood);
+        if(listings.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(listings);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Listing> getListing(@PathVariable("id") long id){
-        Optional<Listing> listing = listingManager.getListing(id);
-        if(listing.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        // this is a comment
-        return ResponseEntity.ok().body(listing.get());
+        Listing listing = listingManager.getListing(id);
+        return ResponseEntity.ok().body(listing);
     }
-
 }

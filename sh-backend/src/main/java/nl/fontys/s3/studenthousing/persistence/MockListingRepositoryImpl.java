@@ -1,6 +1,9 @@
-package nl.fontys.s3.studenthousing.persistence.impl;
+package nl.fontys.s3.studenthousing.persistence;
 
-import nl.fontys.s3.studenthousing.persistence.ListingRepository;
+import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
+import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
+import nl.fontys.s3.studenthousing.persistence.converter.ListingConverterImpl;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +15,12 @@ import java.util.Optional;
 public class MockListingRepositoryImpl implements ListingRepository {
     private static final int RANGE = 15;
     private static long NEXT_ID = 1;
-
     private final List<ListingEntity> listingEntities;
+    private final ListingConverterImpl listingConverter;
 
     public MockListingRepositoryImpl() {
+        listingConverter = new ListingConverterImpl();
+
         this.listingEntities = new ArrayList<>();
         listingEntities.add(ListingEntity.builder()
             .id(NEXT_ID++)
@@ -26,6 +31,7 @@ public class MockListingRepositoryImpl implements ListingRepository {
             .surfaceArea(15)
             .rent(300.50)
             .isActive(true)
+            .petsAllowed(true)
             .build());
 
         listingEntities.add(ListingEntity.builder()
@@ -37,6 +43,7 @@ public class MockListingRepositoryImpl implements ListingRepository {
             .surfaceArea(15)
             .rent(300.50)
             .isActive(false)
+            .petsAllowed(true)
             .build());
 
         listingEntities.add(ListingEntity.builder()
@@ -48,18 +55,44 @@ public class MockListingRepositoryImpl implements ListingRepository {
             .surfaceArea(15)
             .rent(300.50)
             .isActive(true)
+            .petsAllowed(false)
+            .build());
+
+        listingEntities.add(ListingEntity.builder()
+            .id(NEXT_ID++)
+            .address("Coolstreet 1 d")
+            .city("Eindhoven")
+            .description("great house")
+            .neighborhood("Weigh")
+            .surfaceArea(18)
+            .rent(350.50)
+            .isActive(true)
+            .petsAllowed(false)
             .build());
     }
 
     @Override
-    public List<ListingEntity> getActiveListings(int offset) {
-        return listingEntities.stream().filter(ListingEntity::getIsActive).toList();
+    public List<Listing> load(){
+        return listingEntities.stream()
+                .map(listingConverter::convert)
+                .toList();
     }
 
     @Override
-    public Optional<ListingEntity> getById(long id) {
+    public List<Listing> getActiveListings(String minArea, Double maxRent, Boolean petsAllowed, String neighborhood) {
         return listingEntities.stream()
+                .filter(ListingEntity::getIsActive)
+                .map(listingConverter::convert)
+                .toList();
+    }
+
+    @Override
+    public Listing getById(long id) {
+        Optional<Listing> optionalListing = listingEntities.stream()
                 .filter(entity -> entity.getId().equals(id))
-                .findFirst();
+                .findFirst()
+                .map(listingConverter::convert);
+        if(optionalListing.isEmpty()) throw new InvalidListingIDException();
+        return optionalListing.get();
     }
 }
