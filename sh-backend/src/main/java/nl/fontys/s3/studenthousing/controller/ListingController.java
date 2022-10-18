@@ -2,7 +2,7 @@ package nl.fontys.s3.studenthousing.controller;
 
 import nl.fontys.s3.studenthousing.common.domain.Listing;
 import nl.fontys.s3.studenthousing.common.interfaces.ListingManager;
-import nl.fontys.s3.studenthousing.controller.converter.ListingConverterImpl;
+import nl.fontys.s3.studenthousing.controller.converter.ListingConverter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +13,11 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 public class ListingController {
     private ListingManager listingManager;
-    private ListingConverterImpl listingConverter;
+    private ListingConverter listingConverter;
 
     public ListingController(ListingManager listingManager){
         this.listingManager = listingManager;
-        listingConverter = new ListingConverterImpl();
+        listingConverter = new ListingConverter();
     }
 
     @GetMapping

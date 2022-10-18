@@ -3,7 +3,7 @@ package nl.fontys.s3.studenthousing.persistence;
 import nl.fontys.s3.studenthousing.common.domain.Listing;
 import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
-import nl.fontys.s3.studenthousing.persistence.converter.ListingConverterImpl;
+import nl.fontys.s3.studenthousing.persistence.converter.ListingConverter;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +16,10 @@ public class MockListingRepositoryImpl implements ListingRepository {
     private static final int RANGE = 15;
     private static long NEXT_ID = 1;
     private final List<ListingEntity> listingEntities;
-    private final ListingConverterImpl listingConverter;
+    private final ListingConverter listingConverter;
 
     public MockListingRepositoryImpl() {
-        listingConverter = new ListingConverterImpl();
+        listingConverter = new ListingConverter();
 
         this.listingEntities = new ArrayList<>();
         listingEntities.add(ListingEntity.builder()
@@ -74,7 +74,7 @@ public class MockListingRepositoryImpl implements ListingRepository {
     @Override
     public List<Listing> load(){
         return listingEntities.stream()
-                .map(listingConverter::convert)
+                .map(listingConverter::convertToDomain)
                 .toList();
     }
 
@@ -82,7 +82,7 @@ public class MockListingRepositoryImpl implements ListingRepository {
     public List<Listing> getActiveListings(String minArea, Double maxRent, Boolean petsAllowed, String neighborhood) {
         return listingEntities.stream()
                 .filter(ListingEntity::getIsActive)
-                .map(listingConverter::convert)
+                .map(listingConverter::convertToDomain)
                 .toList();
     }
 
@@ -91,7 +91,7 @@ public class MockListingRepositoryImpl implements ListingRepository {
         Optional<Listing> optionalListing = listingEntities.stream()
                 .filter(entity -> entity.getId().equals(id))
                 .findFirst()
-                .map(listingConverter::convert);
+                .map(listingConverter::convertToDomain);
         if(optionalListing.isEmpty()) throw new InvalidListingIDException();
         return optionalListing.get();
     }
