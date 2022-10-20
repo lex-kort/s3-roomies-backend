@@ -21,7 +21,14 @@ public class ListingManagerImpl implements ListingManager {
     }
 
     @Override
-    public List<Listing> getActiveListings(Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood){
+    public List<Listing> getActiveListings(){
+        return listings.stream()
+                .filter(Listing::getIsActive)
+                .toList();
+    }
+
+    @Override
+    public List<Listing> getFilteredListings(Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood){
         if(minArea == null && maxRent == null && petsAllowed == null && neighborhood == null){
             return listings.stream()
                     .filter(Listing::getIsActive)

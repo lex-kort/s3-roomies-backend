@@ -25,7 +25,14 @@ public class ListingController {
                                                            @RequestParam(value = "maxRent", required = false) Double maxRent,
                                                            @RequestParam(value = "pets", required = false) Boolean petsAllowed,
                                                            @RequestParam(value = "neighborhood", required = false) String neighborhood){
-        List<Listing> listings = listingManager.getActiveListings(minArea, maxRent, petsAllowed, neighborhood);
+        List<Listing> listings;
+        if(minArea != null || maxRent != null || petsAllowed != null || neighborhood != null) {
+            listings = listingManager.getFilteredListings(minArea, maxRent, petsAllowed, neighborhood);
+        }
+        else{
+            listings = listingManager.getActiveListings();
+        }
+
         if(listings.isEmpty()){
             return ResponseEntity.notFound().build();
         }
