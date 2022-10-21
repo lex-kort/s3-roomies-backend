@@ -2,6 +2,7 @@ package nl.fontys.s3.studenthousing.business.impl;
 
 import nl.fontys.s3.studenthousing.business.ListingManagerImpl;
 import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.persistence.MockListingRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -103,9 +104,8 @@ class ListingManagerImplTest {
         Init();
         long id = 100;
 
-        Listing listing = m.getListing(id);
-
-        Assertions.assertEquals(id, listing.getId());
-        Assertions.assertEquals(Listing.class, listing.getClass());
+        Assertions.assertThrows(InvalidListingIDException.class, () -> {
+            m.getListing(id);
+        });
     }
 }
