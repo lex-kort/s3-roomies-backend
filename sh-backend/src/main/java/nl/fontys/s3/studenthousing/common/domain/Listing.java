@@ -16,6 +16,7 @@ public class Listing {
     private String neighborhood;
     @Setter
     private String description;
+    @Setter
     private Integer surfaceArea; // In square meters
     @Setter
     private Double rent; // In Euro's
@@ -23,4 +24,8 @@ public class Listing {
     private Boolean petsAllowed;
     @Setter
     private Boolean isActive;
+
+    public boolean checkNeighborhood(String neighborhood){
+        return this.neighborhood.equalsIgnoreCase(neighborhood);
+    }
 }

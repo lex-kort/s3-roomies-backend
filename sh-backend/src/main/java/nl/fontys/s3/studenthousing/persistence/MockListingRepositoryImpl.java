@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public class MockListingRepositoryImpl implements ListingRepository {
     private static final int RANGE = 15;
-    private static long NEXT_ID = 1;
+    private long NEXT_ID = 1;
     private final List<ListingEntity> listingEntities;
     private final ListingConverter listingConverter;
 
