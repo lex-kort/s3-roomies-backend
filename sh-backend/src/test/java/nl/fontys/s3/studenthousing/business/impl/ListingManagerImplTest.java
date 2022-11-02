@@ -3,20 +3,32 @@ package nl.fontys.s3.studenthousing.business.impl;
 import nl.fontys.s3.studenthousing.business.ListingManagerImpl;
 import nl.fontys.s3.studenthousing.common.domain.Listing;
 import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
-import nl.fontys.s3.studenthousing.persistence.MockListingRepositoryImpl;
+import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
+import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class ListingManagerImplTest {
+    @Mock
+    private ListingRepository mockRepo;
+    @InjectMocks
     private ListingManagerImpl m;
+
     private List<Listing> listings;
 
     @BeforeEach
     void Init(){
-        m = new ListingManagerImpl(new MockListingRepositoryImpl());
     }
 
     void AssertListingTypeAndActive(Listing l){
@@ -26,9 +38,40 @@ class ListingManagerImplTest {
 
     @Test
     void getActiveListings() {
-        Init();
-
         listings = m.getActiveListings();
+
+        ListingEntity firstListing = ListingEntity.builder()
+                .address("Coolstreet 1 a")
+                .city("Eindhoven")
+                .description("very cool room")
+                .neighborhood("Neigh")
+                .surfaceArea(15)
+                .rent(300.50)
+                .isActive(true)
+                .petsAllowed(true)
+                .build();
+
+        ListingEntity secondListing = ListingEntity.builder()
+                .address("Coolstreet 1 b")
+                .city("Eindhoven")
+                .description("another very cool room")
+                .neighborhood("Neigh")
+                .surfaceArea(16)
+                .rent(302.25)
+                .isActive(true)
+                .petsAllowed(true)
+                .build();
+
+        ListingEntity thirdListing = ListingEntity.builder()
+                .address("Coolstreet 1 c")
+                .city("Eindhoven")
+                .description("this room is taken (and also very cool)")
+                .neighborhood("Neigh")
+                .surfaceArea(13)
+                .rent(298.00)
+                .isActive(false)
+                .petsAllowed(true)
+                .build();
 
         for(Listing l : listings){
             AssertListingTypeAndActive(l);
@@ -88,16 +131,52 @@ class ListingManagerImplTest {
         }
     }
 
-    @Test
+    /*@Test
     void getListing_validID(){
         Init();
-        long id = 1;
 
-        Listing listing = m.getListing(id);
+        ListingEntity firstListing = ListingEntity.builder()
+                .address("Coolstreet 1 a")
+                .city("Eindhoven")
+                .description("very cool room")
+                .neighborhood("Neigh")
+                .surfaceArea(15)
+                .rent(300.50)
+                .isActive(true)
+                .petsAllowed(true)
+                .build();
 
-        Assertions.assertEquals(id, listing.getId());
+        ListingEntity secondListing = ListingEntity.builder()
+                .address("Coolstreet 1 b")
+                .city("Eindhoven")
+                .description("another very cool room")
+                .neighborhood("Neigh")
+                .surfaceArea(16)
+                .rent(302.25)
+                .isActive(true)
+                .petsAllowed(true)
+                .build();
+
+        ListingEntity thirdListing = ListingEntity.builder()
+                .address("Coolstreet 1 c")
+                .city("Eindhoven")
+                .description("this room is taken (and also very cool)")
+                .neighborhood("Neigh")
+                .surfaceArea(13)
+                .rent(298.00)
+                .isActive(false)
+                .petsAllowed(true)
+                .build();
+
+        mockRepo.save(firstListing);
+        mockRepo.save(secondListing);
+        mockRepo.save(thirdListing);
+
+        Listing listing = m.getListing(firstListing.getId());
+
+        Assertions.assertEquals(firstListing.getId(), listing.getId());
         Assertions.assertEquals(Listing.class, listing.getClass());
-    }
+    }*/
 
     @Test
     void getListing_invalidID(){
