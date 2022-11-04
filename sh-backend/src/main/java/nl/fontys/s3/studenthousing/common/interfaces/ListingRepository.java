@@ -1,6 +1,5 @@
 package nl.fontys.s3.studenthousing.common.interfaces;
 
-import nl.fontys.s3.studenthousing.common.domain.Listing;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

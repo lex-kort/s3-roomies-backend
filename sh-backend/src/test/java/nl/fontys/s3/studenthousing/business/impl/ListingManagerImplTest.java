@@ -76,7 +76,7 @@ class ListingManagerImplTest {
 
         for(Listing l : listings){
             AssertListingTypeAndActive(l);
-            Assertions.assertTrue(l.getPetsAllowed() == petsAllowed);
+            Assertions.assertEquals(petsAllowed, l.getPetsAllowed());
         }
     }
 
