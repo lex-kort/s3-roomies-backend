@@ -1,11 +1,11 @@
-package nl.fontys.s3.studenthousing.domain;
+package nl.fontys.s3.studenthousing.controller.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 @Builder
-public class Listing {
+@Getter
+public class ListingDTO {
     private Long id;
     private String address;
     private String city;
@@ -13,5 +13,6 @@ public class Listing {
     private String description;
     private Integer surfaceArea; // In square meters
     private Double rent; // In Euro's
+    private Boolean petsAllowed;
     private Boolean isActive;
 }
