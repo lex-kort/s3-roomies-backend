@@ -6,6 +6,7 @@ import nl.fontys.s3.studenthousing.common.domain.Listing;
 import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,8 @@ public class ListingManagerImpl implements ListingManager {
 
     public ListingManagerImpl(ListingRepository repository){
         this.repository = repository;
-        listings = this.repository.findByIsActiveTrue();
+        //listings = this.repository.findByIsActiveTrue();
+        listings = new ArrayList<>();
     }
 
     @Override

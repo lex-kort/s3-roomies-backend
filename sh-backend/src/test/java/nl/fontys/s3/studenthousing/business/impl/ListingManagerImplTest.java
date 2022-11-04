@@ -6,7 +6,6 @@ import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,8 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ListingManagerImplTest {
