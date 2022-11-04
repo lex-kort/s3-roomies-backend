@@ -17,7 +17,7 @@ public class ListingManagerImpl implements ListingManager {
 
     public ListingManagerImpl(ListingRepository repository){
         this.repository = repository;
-        listings = this.repository.load();
+        listings = this.repository.findByIsActiveTrue();
     }
 
     @Override

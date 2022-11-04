@@ -7,8 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ListingRepository extends JpaRepository<ListingEntity, Long> {
-    List<Listing> load();
-    List<Listing> getActiveListings();
-    List<Listing> getActiveListings(String minArea, Double maxRent, Boolean petsAllowed, String neighborhood);
-    Listing getById(long id);
+    List<Listing> findByIsActiveTrue();
 }

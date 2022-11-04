@@ -39,40 +39,6 @@ class ListingManagerImplTest {
     @Test
     void getActiveListings() {
         listings = m.getActiveListings();
-
-        ListingEntity firstListing = ListingEntity.builder()
-                .address("Coolstreet 1 a")
-                .city("Eindhoven")
-                .description("very cool room")
-                .neighborhood("Neigh")
-                .surfaceArea(15)
-                .rent(300.50)
-                .isActive(true)
-                .petsAllowed(true)
-                .build();
-
-        ListingEntity secondListing = ListingEntity.builder()
-                .address("Coolstreet 1 b")
-                .city("Eindhoven")
-                .description("another very cool room")
-                .neighborhood("Neigh")
-                .surfaceArea(16)
-                .rent(302.25)
-                .isActive(true)
-                .petsAllowed(true)
-                .build();
-
-        ListingEntity thirdListing = ListingEntity.builder()
-                .address("Coolstreet 1 c")
-                .city("Eindhoven")
-                .description("this room is taken (and also very cool)")
-                .neighborhood("Neigh")
-                .surfaceArea(13)
-                .rent(298.00)
-                .isActive(false)
-                .petsAllowed(true)
-                .build();
-
         for(Listing l : listings){
             AssertListingTypeAndActive(l);
         }
@@ -131,7 +97,6 @@ class ListingManagerImplTest {
         }
     }
 
-    /*
     void getListing_validID(){
         Init();
 
@@ -176,7 +141,7 @@ class ListingManagerImplTest {
 
         Assertions.assertEquals(firstListing.getId(), listing.getId());
         Assertions.assertEquals(Listing.class, listing.getClass());
-    }*/
+    }
 
     @Test
     void getListing_invalidID(){
