@@ -1,6 +1,7 @@
 stages:
 - build
 - test
+- sonarqube
 
 build:
   stage : build
@@ -15,3 +16,10 @@ test:
     - cd sh-backend
     - ./gradlew test
     - ./gradlew.bat --stop
+    
+sonarqube-check:
+  stage: sonarqube
+  script: 
+      - cd sh-backend
+      - ./gradlew sonarqube
+      - ./gradlew.bat --stop

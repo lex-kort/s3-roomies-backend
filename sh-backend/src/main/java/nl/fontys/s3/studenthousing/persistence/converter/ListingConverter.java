@@ -1,10 +1,12 @@
 package nl.fontys.s3.studenthousing.persistence.converter;
 
+import lombok.AllArgsConstructor;
 import nl.fontys.s3.studenthousing.common.domain.Listing;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 
+@AllArgsConstructor
 public class ListingConverter {
-    public ListingEntity convertToEntity(Listing listing){
+    public static ListingEntity convertToEntity(Listing listing){
         return ListingEntity.builder()
                 .id(listing.getId())
                 .address(listing.getAddress())
@@ -17,7 +19,7 @@ public class ListingConverter {
                 .isActive(listing.getIsActive())
                 .build();
     }
-    public Listing convertToDomain(ListingEntity listing){
+    public static Listing convertToDomain(ListingEntity listing){
         return Listing.builder()
                 .id(listing.getId())
                 .address(listing.getAddress())
