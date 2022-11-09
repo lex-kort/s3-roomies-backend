@@ -1,10 +1,12 @@
 package nl.fontys.s3.studenthousing.common.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Builder
+@AllArgsConstructor
 @Getter
 public class Listing {
     private Long id;
