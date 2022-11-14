@@ -1,0 +1,7 @@
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (1, 'Coolstreet 1 a', 'Eindhoven', 'Woensel', 'A cool house', 20, 350.50, true, true);
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (2, 'Coolstreet 1 b', 'Eindhoven', 'Woensel', 'A cool house', 18, 345.80, true, true);
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (3, 'Coolstreet 1 c', 'Eindhoven', 'Woensel', 'A cool house', 21, 353.38, true, true);
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (4, 'Coolstreet 1 d', 'Eindhoven', 'Woensel', 'A cool house', 20, 350.50, true, true);
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (5, 'Nicelane 15 c', 'Eindhoven', 'Strijp', 'A modern house with all amenities', 16, 310.08, false, true);
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (6, 'Nicelane 15 e', 'Eindhoven', 'Strijp', 'A modern house with all amenities', 16, 310.08, false, false);
+INSERT INTO listing (id, address, city, neighborhood, description, surface_area, rent, pets_allowed, is_active) VALUES (7, 'Treeboundlane 26 b', 'Eindhoven', 'Tongelre', 'A big house with lots of room', 25, 390, true, false);
