@@ -1,6 +1,6 @@
-package nl.fontys.s3.studenthousing.common.interfaces;
+package nl.fontys.s3.studenthousing.core.interfaces;
 
-import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.domain.Listing;
 
 import java.util.List;
 

@@ -1,14 +1,12 @@
 package nl.fontys.s3.studenthousing.business;
 
 import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingManager;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
+import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

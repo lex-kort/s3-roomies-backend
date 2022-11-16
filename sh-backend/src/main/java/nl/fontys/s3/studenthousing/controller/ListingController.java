@@ -1,8 +1,8 @@
 package nl.fontys.s3.studenthousing.controller;
 
 import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingManager;
+import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
 import nl.fontys.s3.studenthousing.controller.converter.ListingConverter;
 import nl.fontys.s3.studenthousing.controller.dto.ListingDTO;
 import org.springframework.http.ResponseEntity;

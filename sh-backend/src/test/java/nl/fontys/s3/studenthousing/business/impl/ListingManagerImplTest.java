@@ -1,9 +1,9 @@
 package nl.fontys.s3.studenthousing.business.impl;
 
 import nl.fontys.s3.studenthousing.business.ListingManagerImpl;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
-import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingJPA;
+import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import nl.fontys.s3.studenthousing.persistence.repository.ListingRepositoryImpl;
 import org.junit.jupiter.api.Assertions;

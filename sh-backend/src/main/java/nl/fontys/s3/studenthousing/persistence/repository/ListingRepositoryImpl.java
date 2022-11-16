@@ -1,10 +1,10 @@
 package nl.fontys.s3.studenthousing.persistence.repository;
 
 import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
-import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingJPA;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
+import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
 import nl.fontys.s3.studenthousing.persistence.converter.ListingConverter;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 public class ListingRepositoryImpl implements ListingRepository {
-    private ListingJPA listingJPA;
+    private final ListingJPA listingJPA;
     @Override
     public List<Listing> getActiveListings() {
         return listingJPA.findByIsActiveTrue().stream().map(ListingConverter::convertToDomain).toList();

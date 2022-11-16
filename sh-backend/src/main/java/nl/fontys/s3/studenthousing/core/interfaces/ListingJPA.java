@@ -1,4 +1,4 @@
-package nl.fontys.s3.studenthousing.common.interfaces;
+package nl.fontys.s3.studenthousing.core.interfaces;
 
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

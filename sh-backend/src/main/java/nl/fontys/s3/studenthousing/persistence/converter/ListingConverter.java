@@ -1,7 +1,7 @@
 package nl.fontys.s3.studenthousing.persistence.converter;
 
 import lombok.NoArgsConstructor;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 
 @NoArgsConstructor

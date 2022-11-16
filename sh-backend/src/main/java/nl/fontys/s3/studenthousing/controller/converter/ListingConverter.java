@@ -1,7 +1,7 @@
 package nl.fontys.s3.studenthousing.controller.converter;
 
 import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.controller.dto.ListingDTO;
 
 @AllArgsConstructor

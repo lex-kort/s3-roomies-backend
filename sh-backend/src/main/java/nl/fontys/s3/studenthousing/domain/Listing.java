@@ -1,4 +1,4 @@
-package nl.fontys.s3.studenthousing.common.domain;
+package nl.fontys.s3.studenthousing.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
