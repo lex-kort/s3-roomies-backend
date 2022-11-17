@@ -22,5 +22,5 @@ sonarqube-check:
   stage: sonarqube
   script: 
       - cd sh-backend
-      - ./gradlew sonarqube -D'sonar.qualitygate.wait=true
+      - ./gradlew sonarqube
   allow_failure: true
