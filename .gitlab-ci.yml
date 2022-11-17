@@ -30,5 +30,5 @@ sonarqube-check:
       - .sonar/cache
   script: 
       - cd sh-backend
-      - ./gradlew sonarqube -Dsonar.qualitygate.wait=true
+      - ./gradlew sonarqube -D'sonar.qualitygate.wait=true
   allow_failure: true
