@@ -3,7 +3,6 @@ package nl.fontys.s3.studenthousing.controller.converter;
 import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.controller.dto.ListingDTO;
 
-
 public class ListingConverter {
     private ListingConverter(){}
 
