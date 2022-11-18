@@ -1,11 +1,12 @@
 package nl.fontys.s3.studenthousing.controller.converter;
 
-import lombok.AllArgsConstructor;
 import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.controller.dto.ListingDTO;
 
-@AllArgsConstructor
+
 public class ListingConverter {
+    private ListingConverter(){}
+
     public static ListingDTO convertToDTO(Listing listing){
         return ListingDTO.builder()
                 .id(listing.getId())
