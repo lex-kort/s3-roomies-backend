@@ -27,7 +27,7 @@ class ListingRepositoryImplTest {
     }
 
     @Test
-    public void getActiveListings_allActive(){
+    void getActiveListings_allActive(){
         List<Listing> listings = listingRepository.getActiveListings();
 
         for(Listing l : listings){
