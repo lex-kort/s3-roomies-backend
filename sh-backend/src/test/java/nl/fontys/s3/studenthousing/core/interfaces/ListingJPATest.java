@@ -1,7 +1,6 @@
-package nl.fontys.s3.studenthousing.common.interfaces;
+package nl.fontys.s3.studenthousing.core.interfaces;
 
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,27 +10,20 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.persistence.EntityManager;
-
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace =  AutoConfigureTestDatabase.Replace.NONE)
-class ListingRepositoryTest {
+class ListingJPATest {
     @Autowired
-    private EntityManager entityManager;
+    private ListingJPA listingJPA;
 
-    @Autowired
-    private ListingRepository listingRepository;
-
-    @Autowired
-    ListingRepository repo;
     @Test
     void findByIsActiveTrue_allActive(){
-        List<Listing> listings = listingRepository.findByIsActiveTrue();
+        List<ListingEntity> listings = listingJPA.findByIsActiveTrue();
 
-        for(Listing l : listings){
+        for(ListingEntity l : listings){
             Assertions.assertTrue(l.getIsActive());
         }
     }

@@ -1,11 +1,11 @@
 package nl.fontys.s3.studenthousing.persistence.converter;
 
-import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
+import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 
-@AllArgsConstructor
 public class ListingConverter {
+    private ListingConverter(){}
+
     public static ListingEntity convertToEntity(Listing listing){
         return ListingEntity.builder()
                 .id(listing.getId())
