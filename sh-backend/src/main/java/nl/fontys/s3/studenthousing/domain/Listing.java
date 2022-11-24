@@ -24,8 +24,4 @@ public class Listing {
     private Boolean petsAllowed;
     @Setter
     private Boolean isActive;
-
-    public boolean checkNeighborhood(String neighborhood){
-        return this.neighborhood.equalsIgnoreCase(neighborhood);
-    }
 }
