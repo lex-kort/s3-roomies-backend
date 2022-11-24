@@ -1,7 +1,5 @@
 package nl.fontys.s3.studenthousing.domain.account;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import nl.fontys.s3.studenthousing.core.enums.UserRoles;

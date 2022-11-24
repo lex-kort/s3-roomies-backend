@@ -1,11 +1,9 @@
 package nl.fontys.s3.studenthousing.business;
 
 import lombok.AllArgsConstructor;
-import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
 import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
-import nl.fontys.s3.studenthousing.domain.account.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +15,12 @@ public class ListingManagerImpl implements ListingManager {
 
     @Override
     public List<Listing> getActiveListings(){
-        UserRoles role = UserRoles.STUDENT;
-        System.out.println(UserRoles.STUDENT.name());
         return repository.getActiveListings();
     }
 
     @Override
     public List<Listing> getFilteredListings(Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood){
         List<Listing> listings = repository.getActiveListings();
-        Student student = Student.builder().build();
         return listings.stream()
                 .filter(listing -> filterListing(listing, minArea, maxRent, petsAllowed, neighborhood))
                 .toList();
