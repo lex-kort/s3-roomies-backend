@@ -6,7 +6,12 @@ CREATE TABLE user(
     phone_number varchar(15),
     email varchar(100) NOT NULL,
     password varchar(64) NOT NULL,
-    role varchar(20) NOT NULL,
+    user_role varchar(20) NOT NULL,
+    student_number varchar(12),
+    coc_number varchar(16),
+    address varchar(50),
+    zipcode varchar(50),
+    city varchar(50),
     PRIMARY KEY (id)
 );
 
@@ -24,21 +29,6 @@ CREATE TABLE listing(
     is_active boolean NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (owner_id) REFERENCES user(id)
-);
-
-CREATE TABLE student(
-    user_id int NOT NULL,
-    student_number varchar(12) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);
-
-CREATE TABLE landlord(
-    user_id int NOT NULL,
-    coc_number varchar(16),
-    address varchar(50) NOT NULL,
-    zipcode varchar(50) NOT NULL,
-    city varchar(50) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE responses(

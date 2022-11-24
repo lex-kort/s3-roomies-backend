@@ -1,13 +1,11 @@
 package nl.fontys.s3.studenthousing.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class Listing {
     private Long id;
     @Setter

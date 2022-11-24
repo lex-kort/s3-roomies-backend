@@ -2,6 +2,7 @@ package nl.fontys.s3.studenthousing.persistence.repository;
 
 import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
 import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.persistence.ListingRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ListingRepositoryImplTest {

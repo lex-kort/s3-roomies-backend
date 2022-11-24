@@ -1,6 +1,6 @@
-package nl.fontys.s3.studenthousing.persistence.repository;
+package nl.fontys.s3.studenthousing.persistence;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ListingRepositoryImpl implements ListingRepository {
     private final ListingJPA listingJPA;
     @Override
