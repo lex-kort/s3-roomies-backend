@@ -1,14 +1,18 @@
 package nl.fontys.s3.studenthousing.persistence.entity.account;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
 @Getter
+@SuperBuilder
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_role", discriminatorType = DiscriminatorType.STRING)
@@ -25,14 +29,16 @@ public abstract class UserEntity {
     @Column(name = "prefix")
     private String prefix;
 
+    @NotBlank
     @Column(name = "surname")
     private String surname;
 
+    @NotBlank
     @Column(name = "phone_number")
-    private String phonenumber;
+    private String phoneNumber;
 
     @NotBlank
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank

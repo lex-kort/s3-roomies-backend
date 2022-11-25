@@ -1,11 +1,11 @@
 package nl.fontys.s3.studenthousing.persistence;
 
 import lombok.RequiredArgsConstructor;
+import nl.fontys.s3.studenthousing.core.converters.ListingConverter;
 import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
-import nl.fontys.s3.studenthousing.persistence.converter.ListingConverter;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import org.springframework.stereotype.Repository;
 
