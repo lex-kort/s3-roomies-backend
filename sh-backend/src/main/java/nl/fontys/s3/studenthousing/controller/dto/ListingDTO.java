@@ -1,10 +1,12 @@
 package nl.fontys.s3.studenthousing.controller.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
 @Getter
+@AllArgsConstructor
 public class ListingDTO {
     private Long id;
     private String address;

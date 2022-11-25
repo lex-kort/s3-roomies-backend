@@ -22,7 +22,6 @@ public class ListingManagerImpl implements ListingManager {
     public List<Listing> getFilteredListings(Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood){
         List<Listing> listings = repository.getActiveListings();
         return listings.stream()
-                .filter(Listing::getIsActive)
                 .filter(listing -> filterListing(listing, minArea, maxRent, petsAllowed, neighborhood))
                 .toList();
     }
@@ -35,7 +34,7 @@ public class ListingManagerImpl implements ListingManager {
     private boolean filterListing(Listing listing, Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood) {
         return (minArea == null || listing.getSurfaceArea() >= minArea) &&
                 (maxRent == null || listing.getRent() <= maxRent) &&
-                (petsAllowed == null || listing.getPetsAllowed() == petsAllowed) &&
+                (petsAllowed == null || listing.getPetsAllowed().equals(petsAllowed)) &&
                 (neighborhood == null || listing.getNeighborhood().equalsIgnoreCase(neighborhood));
     }
 
