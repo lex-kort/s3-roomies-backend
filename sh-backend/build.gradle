@@ -57,6 +57,7 @@ sonarqube {
     properties {
         property "sonar.projectKey", "I488027_s3-roomies-backend_AYSqQC-gyjvjNUpzEnhF"
         property "sonar.qualitygate.wait", true
+        property "sonar.coverage.exclusions", "**/core/configuration/**"
     }
 }
 

@@ -34,7 +34,7 @@ public class ListingManagerImpl implements ListingManager {
     private boolean filterListing(Listing listing, Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood) {
         return (minArea == null || listing.getSurfaceArea() >= minArea) &&
                 (maxRent == null || listing.getRent() <= maxRent) &&
-                (petsAllowed == null || listing.getPetsAllowed() == petsAllowed) &&
+                (petsAllowed == null || listing.getPetsAllowed().equals(petsAllowed)) &&
                 (neighborhood == null || listing.getNeighborhood().equalsIgnoreCase(neighborhood));
     }
 
