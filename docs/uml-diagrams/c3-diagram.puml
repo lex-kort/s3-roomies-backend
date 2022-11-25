@@ -2,22 +2,24 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
+' LAYOUT_LANDSCAPE()
+
 Container(sp_app, "Single-Page Application", "JavaScript and React", "Provides all of the functionality related to listings, responding, and messaging")
 
-System_Boundary(c3, "API Application", "Container"){
-    Container(ctrl_comms, "Communications Controller", "Spring MVC Rest Controller", "Utilizes websockets to live update messages between tenants and landlords")
-    Container(ctrl_listings, "Listings Controller", "Spring MVC Rest Controller", "Retrieves listings and listing details for users to view")
-    Container(ctrl_respond, "Response Controller", "Spring MVC Rest Controller", "Allows students to respond to listings")
-    Container(ctrl_login, "Log In Controller", "Spring MVC Rest Controller", "Allows users to log in to the web app")
+System_Boundary(c3, "API Application", "Container"){    
     Container(ctrl_accinfo, "Account Info Controller", "Spring MVC Rest Controller", "Allows users to view and modify their account information")
+    Container(ctrl_login, "Log In Controller", "Spring MVC Rest Controller", "Allows users to log in to the web app")
+    Container(ctrl_respond, "Response Controller", "Spring MVC Rest Controller", "Allows students to respond to listings")
+    Container(ctrl_listings, "Listings Controller", "Spring MVC Rest Controller", "Retrieves listings and listing details for users to view")
+    Container(ctrl_comms, "Communications Controller", "Spring MVC Rest Controller", "Utilizes websockets to live update messages between tenants and landlords")
     
-    Component(comp_comms, "Communications Component", "Java and Spring MVC", "Stores and retrieves (past) messages")
-    Component(comp_listings, "Listings Component", "Java and Spring MVC", "Responsible for CRUD'ing listings")
-    Component(comp_responses, "Responses Component", "Java and Spring MVC", "Responsible for CRUD'ing responses")
-    Component(comp_security, "Security Component", "Spring Bean", "Provides functionality related to logging in, changing user information, etc.")
-    Component(comp_accsummary, "Account Summary Component", "Spring MVC Rest Controller", "Retrieves non-sensitive account summary information")
-    Component(comp_notiffacade, "Notification Facade", "Java and Spring MVC", "Responsible for handling notification system and communicating with external messaging services")
     Component(comp_emailsched, "Email Scheduler", "Java and Spring MVC", "Automatically sends emails to users that have signed up for receiving notifications")
+    Component(comp_accsummary, "Account Summary Component", "Spring MVC Rest Controller", "Retrieves non-sensitive account summary information")
+    Component(comp_security, "Security Component", "Spring Bean", "Provides functionality related to logging in, changing user information, etc.")
+    Component(comp_responses, "Responses Component", "Java and Spring MVC", "Responsible for CRUD'ing responses")
+    Component(comp_listings, "Listings Component", "Java and Spring MVC", "Responsible for CRUD'ing listings")
+    Component(comp_comms, "Communications Component", "Java and Spring MVC", "Stores and retrieves (past) messages")
+    Component(comp_notiffacade, "Notification Facade", "Java and Spring MVC", "Responsible for handling notification system and communicating with external messaging services")
 
     Container(rep_comms, "Communications Repository", "JPA", "Performs CRUD actions on communication data")
     Container(rep_listings, "Listings Repository", "JPA", "Performs CRUD actions on communication data")
@@ -25,16 +27,12 @@ System_Boundary(c3, "API Application", "Container"){
     Container(rep_accinfo, "Account Information Repository", "JPA", "Performs CRUD actions on communication data")
 }
 
-ContainerDb(db, "Database", "MySQL", "Holds user, listing, and messaging information")
-Container_Ext(mail_serv, "E-mail System", "Software System", "External email system for sending email notifications")
-
-BiRel(sp_app, ctrl_comms, "Communicates using", "JSON / HTTPS / Websocket")
 Rel(sp_app, ctrl_login, "Makes API calls to", "JSON / HTTPS")
 Rel(sp_app, ctrl_listings, "Makes API calls to", "JSON / HTTPS")
 Rel(sp_app, ctrl_accinfo, "Makes API calls to", "JSON / HTTPS")
 Rel(sp_app, ctrl_respond, "Makes API calls to", "JSON / HTTPS")
+BiRel(sp_app, ctrl_comms, "Communicates using", "JSON / HTTPS / Websocket")
 
-Rel(ctrl_comms, comp_comms, "Uses")
 Rel(ctrl_login, comp_security, "Uses")
 Rel(ctrl_accinfo, comp_security, "Uses")
 Rel(ctrl_accinfo, comp_accsummary, "Uses")
@@ -42,18 +40,27 @@ Rel(comp_emailsched, comp_accsummary, "Uses")
 Rel(comp_emailsched, comp_notiffacade, "Uses")
 Rel(ctrl_listings, comp_listings, "Uses")
 Rel(ctrl_respond, comp_responses, "Uses")
+Rel(ctrl_comms, comp_comms, "Uses")
 
-Rel(comp_comms, rep_comms, "Uses")
 Rel(comp_listings, rep_listings, "Uses")
 Rel(comp_responses, rep_responses, "Uses")
-Rel(comp_accsummary, rep_accinfo, "Uses")
+Rel_L(comp_accsummary, rep_accinfo, "Uses")
 Rel(comp_security, rep_accinfo, "Uses")
+Rel(comp_comms, rep_comms, "Uses")
 
-Rel_D(rep_comms, db, "Reads from / writes to")
-Rel_D(comp_notiffacade, mail_serv, "Sends e-mails using")
-Rel_D(rep_accinfo, db, "Reads from / writes to")
-Rel_D(rep_listings, db, "Reads from / writes to")
-Rel_D(rep_responses, db, "Reads from / writes to")
+ContainerDb(db, "Database", "MySQL", "Holds user, listing, and messaging information")
+Container_Ext(mail_serv, "External SMTP Server", "Software System", "External email system for sending email notifications")
+Container_Ext(lib_email, "Spring Email", "Java", "Handles the connection to external e-mail services for sending e-mails")
+Container_Ext(lib_freemarker, "Apache Freemarker", "Java / HTML", "Allows the use of e-mail templates for easier creation of e-mails")
+Container_Ext(lib_bootstrap, "Bootstrap", "CSS", "Provides styling for e-mail templates")
 
-SHOW_LEGEND()
+Rel(comp_notiffacade, mail_serv, "Sends e-mails using")
+Rel(rep_accinfo, db, "Reads from / writes to")
+Rel(rep_listings, db, "Reads from / writes to")
+Rel(rep_responses, db, "Reads from / writes to")
+Rel(rep_comms, db, "Reads from / writes to")
+
+Rel_L(comp_notiffacade, lib_email, "Utilizes")
+Rel(comp_notiffacade, lib_freemarker, "Utilizes")
+Rel(comp_notiffacade, lib_bootstrap, "Utilizes")
 @enduml

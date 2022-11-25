@@ -1,12 +1,9 @@
 package nl.fontys.s3.studenthousing.business.impl;
 
 import nl.fontys.s3.studenthousing.business.ListingManagerImpl;
-import nl.fontys.s3.studenthousing.common.domain.Listing;
-import nl.fontys.s3.studenthousing.common.exceptions.InvalidListingIDException;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingRepository;
-import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
+import nl.fontys.s3.studenthousing.domain.Listing;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,89 +12,83 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class ListingManagerImplTest {
     @Mock
     private ListingRepository mockRepo;
+
     @InjectMocks
-    private ListingManagerImpl m;
-
-    private List<Listing> listings;
-
-    @BeforeEach
-    void Init(){
-    }
-
-    void AssertListingTypeAndActive(Listing l){
-        Assertions.assertEquals(Listing.class, l.getClass());
-        Assertions.assertTrue(l.getIsActive());
-    }
+    private ListingManagerImpl listingManager;
 
     @Test
     void getActiveListings() {
-        listings = m.getActiveListings();
-        for(Listing l : listings){
-            AssertListingTypeAndActive(l);
-        }
+        List<Listing> expected = List.of(Listing.builder().id(1L).isActive(true).build());
+        when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).isActive(true).build()));
+
+        List<Listing> actual = listingManager.getActiveListings();
+
+        assertEquals(actual, expected);
+        verify(mockRepo).getActiveListings();
     }
 
     @Test
     void getFilteredListings_filterOnMinSurfaceArea() {
-        Init();
         int minArea = 16;
+        when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).surfaceArea(minArea).build(), Listing.builder().id(2L).surfaceArea(minArea-1).build()));
 
-        listings = m.getFilteredListings(minArea, null, null, null);
+        List<Listing> actual = listingManager.getFilteredListings(minArea, null, null, null);
+        List<Listing> expected = List.of(Listing.builder().id(1L).surfaceArea(minArea).build());
 
-        for(Listing l : listings){
-            AssertListingTypeAndActive(l);
-            Assertions.assertTrue(l.getSurfaceArea() >= minArea);
-        }
+        assertEquals(actual, expected);
+        verify(mockRepo).getActiveListings();
     }
 
     @Test
     void getFilteredListings_filterOnMaxRent() {
-        Init();
         double maxRent = 306;
+        when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).rent(maxRent).build(), Listing.builder().id(2L).rent(maxRent+1).build()));
 
-        listings = m.getFilteredListings(null, maxRent, null, null);
+        List<Listing> actual = listingManager.getFilteredListings(null, maxRent, null, null);
+        List<Listing> expected = List.of(Listing.builder().id(1L).rent(maxRent).build());
 
-        for(Listing l : listings){
-            AssertListingTypeAndActive(l);
-            Assertions.assertTrue(l.getSurfaceArea() <= maxRent);
-        }
+        assertEquals(actual, expected);
+        verify(mockRepo).getActiveListings();
     }
 
     @Test
     void getFilteredListings_filterOnPetsAllowed() {
-        Init();
-        boolean petsAllowed = false;
+        when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).petsAllowed(true).build(), Listing.builder().id(2L).petsAllowed(false).build()));
 
-        listings = m.getFilteredListings(null, null, petsAllowed, null);
+        List<Listing> actual = listingManager.getFilteredListings(null, null, true, null);
+        List<Listing> expected = List.of(Listing.builder().id(1L).petsAllowed(true).build());
 
-        for(Listing l : listings){
-            AssertListingTypeAndActive(l);
-            Assertions.assertEquals(petsAllowed, l.getPetsAllowed());
-        }
+        assertEquals(actual, expected);
+        verify(mockRepo).getActiveListings();
     }
 
     @Test
     void getFilteredListings_filterOnNeighborhood() {
-        Init();
-        String neighborhood = "Neigh";
+        String neighborhood = "Strijp";
+        String differentNeighborhood = "Woensel";
+        when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).neighborhood(neighborhood).build(), Listing.builder().id(2L).neighborhood(differentNeighborhood).build()));
 
-        listings = m.getFilteredListings(null, null, null, neighborhood);
+        List<Listing> actual = listingManager.getFilteredListings(null, null, null, neighborhood);
+        List<Listing> expected = List.of(Listing.builder().id(1L).neighborhood(neighborhood).build());
 
-        for(Listing l : listings){
-            AssertListingTypeAndActive(l);
-            Assertions.assertTrue(l.getNeighborhood().equalsIgnoreCase(neighborhood));
-            Assertions.assertTrue(l.checkNeighborhood(neighborhood));
-        }
+        assertEquals(actual, expected);
+        verify(mockRepo).getActiveListings();
     }
 
-    void getListing_validID(){
-        Init();
-
-        ListingEntity firstListing = ListingEntity.builder()
+    @Test
+    void getListing_validID() {
+        Long id = 1L;
+        Listing expectedListing = Listing.builder()
+                .id(id)
                 .address("Coolstreet 1 a")
                 .city("Eindhoven")
                 .description("very cool room")
@@ -108,45 +99,23 @@ class ListingManagerImplTest {
                 .petsAllowed(true)
                 .build();
 
-        ListingEntity secondListing = ListingEntity.builder()
-                .address("Coolstreet 1 b")
-                .city("Eindhoven")
-                .description("another very cool room")
-                .neighborhood("Neigh")
-                .surfaceArea(16)
-                .rent(302.25)
-                .isActive(true)
-                .petsAllowed(true)
-                .build();
+        when(mockRepo.getById(id)).thenReturn(expectedListing);
 
-        ListingEntity thirdListing = ListingEntity.builder()
-                .address("Coolstreet 1 c")
-                .city("Eindhoven")
-                .description("this room is taken (and also very cool)")
-                .neighborhood("Neigh")
-                .surfaceArea(13)
-                .rent(298.00)
-                .isActive(false)
-                .petsAllowed(true)
-                .build();
+        Listing actualListing = listingManager.getListing(id);
 
-        mockRepo.save(firstListing);
-        mockRepo.save(secondListing);
-        mockRepo.save(thirdListing);
-
-        Listing listing = m.getListing(firstListing.getId());
-
-        Assertions.assertEquals(firstListing.getId(), listing.getId());
-        Assertions.assertEquals(Listing.class, listing.getClass());
+        assertEquals(expectedListing.getId(), actualListing.getId());
+        assertEquals(Listing.class, actualListing.getClass());
+        verify(mockRepo).getById(id);
     }
 
     @Test
-    void getListing_invalidID(){
-        Init();
-        long id = 100;
+    void getListing_invalidID() {
+        Long id = 100L;
+        when(mockRepo.getById(100L)).thenThrow(InvalidListingIDException.class);
 
-        Assertions.assertThrows(InvalidListingIDException.class, () -> {
-            m.getListing(id);
+        assertThrows(InvalidListingIDException.class, () -> {
+            listingManager.getListing(id);
         });
+        verify(mockRepo).getById(id);
     }
 }

@@ -1,8 +1,10 @@
 package nl.fontys.s3.studenthousing.controller;
 
-import nl.fontys.s3.studenthousing.common.domain.Listing;
-import nl.fontys.s3.studenthousing.common.interfaces.ListingManager;
-import nl.fontys.s3.studenthousing.controller.converter.ListingConverter;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
+import nl.fontys.s3.studenthousing.core.converters.ListingConverter;
 import nl.fontys.s3.studenthousing.controller.dto.ListingDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/listings")
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
+@RequiredArgsConstructor
 public class ListingController {
-    private ListingManager listingManager;
-
-    public ListingController(ListingManager listingManager){
-        this.listingManager = listingManager;
-    }
+    private final ListingManager listingManager;
 
     @GetMapping
     public ResponseEntity<List<ListingDTO>> getActiveListings(@RequestParam(value = "minArea", required = false) Integer minArea,

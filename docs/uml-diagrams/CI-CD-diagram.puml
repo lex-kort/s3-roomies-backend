@@ -1,0 +1,21 @@
+@startuml
+collections git.fhict.nl
+hexagon Deployment
+component SonarQubeInstance
+rectangle DevEnv {
+    actor Developer
+    node LocalRepo
+    Developer -> LocalRepo : 1. commit
+}
+Developer -d-> Deployment : 5. deploy
+Developer -u-> git.fhict.nl : 2. push to remote
+cloud GitlabRunner {
+    rectangle build
+    rectangle test
+    rectangle sonarqube
+    build --^ test
+    test --^ sonarqube
+}
+git.fhict.nl -> GitlabRunner : 3. run   pipeline
+sonarqube -[dashed]-> SonarQubeInstance : 4. spin up
+@enduml
