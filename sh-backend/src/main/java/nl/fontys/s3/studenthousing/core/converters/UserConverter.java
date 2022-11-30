@@ -55,6 +55,7 @@ public class UserConverter {
             case STUDENT:
                 StudentEntity student = (StudentEntity) user;
                 return Student.builder()
+                        .id(student.getId())
                         .email(student.getEmail())
                         .password(student.getPassword())
                         .name(student.getName())
@@ -68,6 +69,7 @@ public class UserConverter {
             case LANDLORD:
                 LandlordEntity landlord = (LandlordEntity) user;
                 return Landlord.builder()
+                        .id(landlord.getId())
                         .email(landlord.getEmail())
                         .password(landlord.getPassword())
                         .name(landlord.getName())
@@ -94,7 +96,6 @@ public class UserConverter {
                 return UserDTO.builder()
                         .id(student.getId())
                         .email(student.getEmail())
-                        .password(student.getPassword())
                         .name(student.getName())
                         .prefix(student.getPrefix())
                         .surname(student.getSurname())

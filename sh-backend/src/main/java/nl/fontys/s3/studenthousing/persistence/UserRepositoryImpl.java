@@ -21,9 +21,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findByEmail(String email){
         UserEntity user = userJPA.findByEmail(email);
-        if(user == null){
-            return null;
-        }
-        return UserConverter.convertToDomain(user);
+        return user != null ? UserConverter.convertToDomain(user) : null;
     }
 }

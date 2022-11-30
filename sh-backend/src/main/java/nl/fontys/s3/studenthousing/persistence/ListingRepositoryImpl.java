@@ -27,10 +27,18 @@ public class ListingRepositoryImpl implements ListingRepository {
 
     @Override
     public Listing getById(Long id){
-        Optional<ListingEntity> optionalListing = listingJPA.findById(id).stream()
-                .filter(entity -> entity.getId().equals(id))
-                .findFirst();
-        if(optionalListing.isEmpty()) throw new InvalidListingIDException();
+        Optional<ListingEntity> optionalListing;
+        try{
+            optionalListing = listingJPA.findById(id).stream()
+                    .filter(entity -> entity.getId().equals(id))
+                    .findFirst();
+        }
+        catch(IllegalArgumentException e){
+            throw new InvalidListingIDException();
+        }
+        if(optionalListing.isEmpty()) {
+            throw new InvalidListingIDException();
+        }
         return ListingConverter.convertToDomain(optionalListing.get());
     }
 }

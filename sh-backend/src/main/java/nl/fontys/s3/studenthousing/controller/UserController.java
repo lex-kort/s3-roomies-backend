@@ -1,6 +1,5 @@
 package nl.fontys.s3.studenthousing.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import nl.fontys.s3.studenthousing.controller.dto.UserDTO;
 import nl.fontys.s3.studenthousing.core.converters.UserConverter;
@@ -10,11 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/api/accounts")
-//@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
 public class UserController {
     private final UserManager userManager;
