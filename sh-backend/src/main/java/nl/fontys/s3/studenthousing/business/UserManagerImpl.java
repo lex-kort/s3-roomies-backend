@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nl.fontys.s3.studenthousing.core.exceptions.EmailAlreadyTakenException;
 import nl.fontys.s3.studenthousing.core.interfaces.UserManager;
 import nl.fontys.s3.studenthousing.core.interfaces.UserRepository;
+import nl.fontys.s3.studenthousing.domain.AccessToken;
 import nl.fontys.s3.studenthousing.domain.account.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ public class UserManagerImpl implements UserManager {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
+    private AccessToken requestToken;
+
     @Override
     public User registerUser(User user){
         User found = userRepository.findByEmail(user.getEmail());
@@ -23,5 +26,14 @@ public class UserManagerImpl implements UserManager {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepository.registerUser(user);
+    }
+
+    @Override
+    public User getUser(Long userId) {
+        User user = userRepository.findById(userId);
+        if(user == null){
+            throw new IllegalArgumentException();
+        }
+        return user;
     }
 }

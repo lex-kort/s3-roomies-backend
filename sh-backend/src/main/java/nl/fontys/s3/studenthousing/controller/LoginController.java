@@ -26,7 +26,7 @@ public class LoginController {
             response = loginManager.authenticate(Login.builder().email(loginDTO.getEmail()).password(loginDTO.getPassword()).build());
         }
         catch(InvalidCredentialsException | EmailNotFoundException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("The provided login credentials are invalid");
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(response);
     }
