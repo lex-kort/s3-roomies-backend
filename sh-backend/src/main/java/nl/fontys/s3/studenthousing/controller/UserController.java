@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/accounts")
 @CrossOrigin("http://localhost:3000")
@@ -20,7 +22,7 @@ public class UserController {
     private final AccessToken accessToken;
 
     @PutMapping("register")
-    public ResponseEntity registerAccount(@RequestBody UserDTO dto){
+    public ResponseEntity registerAccount(@RequestBody @Valid UserDTO dto){
         UserDTO user;
         try{
             user = UserConverter.convertToDTO(userManager.registerUser(UserConverter.convertToDomain(dto)));
