@@ -8,6 +8,8 @@ import nl.fontys.s3.studenthousing.domain.account.User;
 import nl.fontys.s3.studenthousing.persistence.entity.account.UserEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -21,9 +23,12 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findByEmail(String email){
         UserEntity user = userJPA.findByEmail(email);
-        if(user == null){
-            return null;
-        }
-        return UserConverter.convertToDomain(user);
+        return user != null ? UserConverter.convertToDomain(user) : null;
+    }
+
+    @Override
+    public User findById(Long userId) {
+        Optional<UserEntity> user = userJPA.findById(userId);
+        return !user.isEmpty() ? UserConverter.convertToDomain(user.get()) : null;
     }
 }
