@@ -8,6 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class Listing {
     private Long id;
+    private Long ownerId;
     @Setter
     private String address;
     @Setter

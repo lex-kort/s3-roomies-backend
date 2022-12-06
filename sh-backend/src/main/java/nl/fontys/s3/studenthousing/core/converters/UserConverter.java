@@ -147,6 +147,7 @@ public class UserConverter {
                 return LandlordEntity.builder()
                         .id(landlord.getId())
                         .email(landlord.getEmail())
+                        .password(landlord.getPassword())
                         .name(landlord.getName())
                         .prefix(landlord.getPrefix())
                         .surname(landlord.getSurname())

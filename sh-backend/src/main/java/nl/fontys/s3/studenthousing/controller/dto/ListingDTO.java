@@ -9,6 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ListingDTO {
     private Long id;
+    private Long ownerId;
     private String address;
     private String city;
     private String neighborhood;

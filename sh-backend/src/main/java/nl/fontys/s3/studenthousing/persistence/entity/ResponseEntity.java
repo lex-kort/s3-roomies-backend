@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import nl.fontys.s3.studenthousing.persistence.entity.account.UserEntity;
 
 import javax.persistence.*;
 
@@ -18,4 +19,12 @@ public class ResponseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "listing_id")
+    private ListingEntity listing;
 }

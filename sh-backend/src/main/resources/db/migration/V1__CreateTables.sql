@@ -33,8 +33,10 @@ CREATE TABLE listing(
 );
 
 CREATE TABLE responses(
+    id int NOT NULL AUTO_INCREMENT,
     user_id int NOT NULL,
     listing_id int NOT NULL,
+    PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user(id)
       ON DELETE CASCADE,
     FOREIGN KEY (listing_id) REFERENCES listing(id)
