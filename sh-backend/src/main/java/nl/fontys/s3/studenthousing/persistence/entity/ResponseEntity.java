@@ -19,11 +19,9 @@ public class ResponseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
     @ManyToOne
     @JoinColumn(name = "listing_id")
     private ListingEntity listing;
