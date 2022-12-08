@@ -1,10 +1,7 @@
 package nl.fontys.s3.studenthousing.persistence.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-import lombok.NoArgsConstructor;
 import nl.fontys.s3.studenthousing.persistence.entity.account.LandlordEntity;
 import org.hibernate.validator.constraints.Length;
 
@@ -60,6 +57,10 @@ public class ListingEntity {
     @NotBlank
     @Column(name = "pets_allowed")
     private Boolean petsAllowed;
+
+    @NotBlank
+    @Column(name = "order_type")
+    private String orderType;
 
     @NotBlank
     @Column(name= "end_date")

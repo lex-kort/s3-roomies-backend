@@ -5,6 +5,7 @@ import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
 import nl.fontys.s3.studenthousing.domain.Listing;
 import nl.fontys.s3.studenthousing.persistence.ListingRepositoryImpl;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
+import nl.fontys.s3.studenthousing.persistence.entity.account.LandlordEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,8 +29,13 @@ class ListingRepositoryImplTest {
 
     @Test
     void getActiveListings_allActive(){
-        List<ListingEntity> entities = List.of(ListingEntity.builder().id(1L).isActive(true).build());
-        List<Listing> expected = List.of(Listing.builder().id(1L).isActive(true).build());
+        Long ownerId = 1L;
+        LandlordEntity owner = LandlordEntity.builder()
+                .id(ownerId)
+                .build();
+
+        List<ListingEntity> entities = List.of(ListingEntity.builder().id(1L).owner(owner).isActive(true).build());
+        List<Listing> expected = List.of(Listing.builder().id(1L).ownerId(ownerId).isActive(true).build());
 
         when(mockJPA.findByIsActiveTrue()).thenReturn(entities);
 
@@ -41,9 +47,15 @@ class ListingRepositoryImplTest {
 
     @Test
     void getListing_validID() {
-        Long id = 1L;
+        Long ownerId = 1L;
+        LandlordEntity owner = LandlordEntity.builder()
+                .id(ownerId)
+                .build();
+
+        Long listingId = 1L;
         ListingEntity listingEntity = ListingEntity.builder()
-                .id(id)
+                .id(listingId)
+                .owner(owner)
                 .address("Coolstreet 1 a")
                 .city("Eindhoven")
                 .description("very cool room")
@@ -55,7 +67,8 @@ class ListingRepositoryImplTest {
                 .build();
 
         Listing expectedListing = Listing.builder()
-                .id(id)
+                .id(listingId)
+                .ownerId(ownerId)
                 .address("Coolstreet 1 a")
                 .city("Eindhoven")
                 .description("very cool room")
@@ -66,13 +79,13 @@ class ListingRepositoryImplTest {
                 .petsAllowed(true)
                 .build();
 
-        when(mockJPA.findById(id)).thenReturn(Optional.ofNullable(listingEntity));
+        when(mockJPA.findById(listingId)).thenReturn(Optional.ofNullable(listingEntity));
 
-        Listing actualListing = listingRepository.getById(id);
+        Listing actualListing = listingRepository.getById(listingId);
 
         assertEquals(expectedListing, actualListing);
         assertEquals(Listing.class, actualListing.getClass());
-        verify(mockJPA).findById(id);
+        verify(mockJPA).findById(listingId);
     }
 
     @Test

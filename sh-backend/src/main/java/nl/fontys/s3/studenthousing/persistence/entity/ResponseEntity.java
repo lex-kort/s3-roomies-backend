@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import nl.fontys.s3.studenthousing.persistence.entity.account.UserEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Entity
 @Table(name = "responses")
@@ -25,4 +27,7 @@ public class ResponseEntity {
     @ManyToOne
     @JoinColumn(name = "listing_id")
     private ListingEntity listing;
+    @NotBlank
+    @Column(name = "response_date")
+    private Date responseDate;
 }
