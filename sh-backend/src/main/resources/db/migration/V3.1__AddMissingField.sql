@@ -1,0 +1,1 @@
+ALTER TABLE responses ADD position int AFTER response_date;

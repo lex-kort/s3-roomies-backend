@@ -30,6 +30,7 @@ CREATE TABLE listing(
     is_active boolean NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (owner_id) REFERENCES user(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE responses(
