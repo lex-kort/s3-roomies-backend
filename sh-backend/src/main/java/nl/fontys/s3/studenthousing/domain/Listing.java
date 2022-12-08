@@ -1,6 +1,7 @@
 package nl.fontys.s3.studenthousing.domain;
 
 import lombok.*;
+import nl.fontys.s3.studenthousing.core.enums.OrderType;
 
 @Builder
 @AllArgsConstructor
@@ -23,6 +24,8 @@ public class Listing {
     private Double rent; // In Euro's
     @Setter
     private Boolean petsAllowed;
+    @Setter
+    private OrderType orderType;
     @Setter
     private Boolean isActive;
 }

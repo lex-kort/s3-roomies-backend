@@ -30,4 +30,8 @@ public class ResponseEntity {
     @NotBlank
     @Column(name = "response_date")
     private Date responseDate;
+    @Column(name = "position")
+    private Integer position;
+    @Column(name = "has_accepted")
+    private Boolean hasAccepted;
 }
