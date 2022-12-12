@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 
-// EXPERIMENTAL LOMBOk ANNOTATION
+// EXPERIMENTAL LOMBOK ANNOTATION
 // Utilize following structure in case of issues
 // https://www.baeldung.com/lombok-builder-inheritance
 @SuperBuilder
