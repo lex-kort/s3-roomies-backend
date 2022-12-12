@@ -1,15 +1,14 @@
 package nl.fontys.s3.studenthousing.persistence.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-import lombok.NoArgsConstructor;
+import nl.fontys.s3.studenthousing.persistence.entity.account.LandlordEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "listing")
@@ -38,8 +37,9 @@ public class ListingEntity {
     @Column(name = "neighborhood")
     private String neighborhood;
 
-    @Column(name = "owner_id")
-    private Long ownerId;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private LandlordEntity owner;
 
     @NotBlank
     @Length(min = 2, max = 500)
@@ -59,10 +59,17 @@ public class ListingEntity {
     private Boolean petsAllowed;
 
     @NotBlank
+    @Column(name = "order_type")
+    private String orderType;
+
+    @NotBlank
     @Column(name= "end_date")
     private Date endDate;
 
     @NotBlank
     @Column(name = "is_active")
     private Boolean isActive;
+
+    @OneToMany(mappedBy = "listing")
+    private List<ResponseEntity> responses;
 }

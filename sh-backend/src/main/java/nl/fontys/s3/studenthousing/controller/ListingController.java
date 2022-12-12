@@ -41,7 +41,7 @@ public class ListingController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Listing> getListing(@PathVariable("id") long id){
+    public ResponseEntity<Listing> getListing(@PathVariable("id") Long id){
         Listing listing;
         try{
             listing = listingManager.getListing(id);

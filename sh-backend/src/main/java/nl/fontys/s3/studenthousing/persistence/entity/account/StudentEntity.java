@@ -5,10 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import nl.fontys.s3.studenthousing.persistence.entity.ResponseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,4 +23,8 @@ import javax.persistence.Entity;
 public class StudentEntity extends UserEntity{
     @Column(name = "student_number")
     private String studentNumber;
+    @Column(name = "signup_date")
+    private Date signupDate;
+    @OneToMany(mappedBy = "user")
+    private List<ResponseEntity> responses;
 }
