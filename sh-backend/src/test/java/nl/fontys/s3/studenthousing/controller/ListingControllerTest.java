@@ -46,8 +46,10 @@ class ListingControllerTest {
         mockMvc.perform(get("/api/listings"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(header().string("Content-Type", APPLICATION_JSON_VALUE));
-//                .andExpect(content().json("""[{"id":1, "address":"Windmolenstraat 1", "city":"Eindhoven", "rent":300.30}, {"id":2, "address":"Windmolenstraat 3", "city":"Eindhoven", "rent":310.30}]"""));
+                .andExpect(header().string("Content-Type", APPLICATION_JSON_VALUE))
+                .andExpect(content().json("""
+                                                    [{"id":1, "address":"Windmolenstraat 1", "city":"Eindhoven", "rent":300.30}, {"id":2, "address":"Windmolenstraat 3", "city":"Eindhoven", "rent":310.30}]
+                                                    """));
         verify(mockManager).getActiveListings();
     }
 }
