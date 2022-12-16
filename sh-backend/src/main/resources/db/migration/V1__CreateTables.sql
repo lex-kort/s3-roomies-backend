@@ -30,11 +30,14 @@ CREATE TABLE listing(
     is_active boolean NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (owner_id) REFERENCES user(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE responses(
+    id int NOT NULL AUTO_INCREMENT,
     user_id int NOT NULL,
     listing_id int NOT NULL,
+    PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user(id)
       ON DELETE CASCADE,
     FOREIGN KEY (listing_id) REFERENCES listing(id)

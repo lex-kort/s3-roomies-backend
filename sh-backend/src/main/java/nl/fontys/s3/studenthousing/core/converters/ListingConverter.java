@@ -10,6 +10,7 @@ public class ListingConverter {
     public static ListingDTO convertToDTO(Listing listing){
         return ListingDTO.builder()
                 .id(listing.getId())
+                .ownerId(listing.getOwnerId())
                 .address(listing.getAddress())
                 .city(listing.getCity())
                 .description(listing.getDescription())
@@ -37,6 +38,7 @@ public class ListingConverter {
     public static Listing convertToDomain(ListingEntity listing){
         return Listing.builder()
                 .id(listing.getId())
+                .ownerId(listing.getOwner().getId())
                 .address(listing.getAddress())
                 .city(listing.getCity())
                 .description(listing.getDescription())

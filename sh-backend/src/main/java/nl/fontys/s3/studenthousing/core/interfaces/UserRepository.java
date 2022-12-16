@@ -6,4 +6,6 @@ public interface UserRepository {
     User registerUser(User user);
 
     User findByEmail(String email);
+
+    User findById(Long userId);
 }
