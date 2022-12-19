@@ -9,6 +9,7 @@ services:
 
   roomies-backend:
     build: 
+      context: ./sh-backend
       dockerfile: Dockerfile
 
     image: roomies/sh-backend
