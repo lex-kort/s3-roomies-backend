@@ -1,0 +1,7 @@
+.git
+.gitignore
+README.md
+docker-compose.yml
+sh-backend/.gradle
+sh-backend/.idea
+sh-backend/Dockerfile
