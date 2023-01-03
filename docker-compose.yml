@@ -10,6 +10,8 @@ services:
   roomies-backend:
     build: 
       context: ./sh-backend
+      args:
+        JAR_FILE: build/libs/*.jar
       dockerfile: Dockerfile
 
     image: roomies/sh-backend
