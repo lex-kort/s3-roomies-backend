@@ -5,6 +5,7 @@ stages:
 - build
 - test
 - sonarqube
+- delivery
 
 build:
   stage : build
@@ -18,9 +19,17 @@ test:
     - cd sh-backend
     - ./gradlew test
     
-sonarqube-check:
+sonarqube:
   stage: sonarqube
   script: 
       - cd sh-backend
       - ./gradlew sonarqube
   allow_failure: true
+  
+delivery:
+    stage: delivery
+    script:
+        - cd sh-backend
+        - ./gradlew build -x test
+        - cd ..
+        - docker-compose build
