@@ -48,7 +48,7 @@ public class ListingEntity {
 
     @NotBlank
     @Column(name = "surface_area")
-    private Integer surfaceArea; // In square meters
+    private Double surfaceArea; // In square meters
 
     @NotBlank
     @Column(name = "rent")

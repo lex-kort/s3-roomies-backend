@@ -19,7 +19,7 @@ public class Listing {
     @Setter
     private String description;
     @Setter
-    private Integer surfaceArea; // In square meters
+    private Double surfaceArea; // In square meters
     @Setter
     private Double rent; // In Euro's
     @Setter

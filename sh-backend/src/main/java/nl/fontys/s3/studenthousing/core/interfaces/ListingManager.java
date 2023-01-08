@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ListingManager {
     List<Listing> getActiveListings();
-    List<Listing> getFilteredListings(Integer minArea, Double maxRent, Boolean petsAllowed, String neighborhood);
+    List<Listing> getFilteredListings(Double minArea, Double maxRent, Boolean petsAllowed, String neighborhood);
     Listing getListing(Long id);
     void createListing(Listing listing);
 }

@@ -29,7 +29,7 @@ public class ListingController {
     }
 
     @PostMapping
-    public ResponseEntity<List<ListingDTO>> getFilteredListings(@RequestParam(value = "minArea", required = false) Integer minArea,
+    public ResponseEntity<List<ListingDTO>> getFilteredListings(@RequestParam(value = "minArea", required = false) Double minArea,
                                                               @RequestParam(value = "maxRent", required = false) Double maxRent,
                                                               @RequestParam(value = "pets", required = false) Boolean petsAllowed,
                                                               @RequestParam(value = "neighborhood", required = false) String neighborhood){

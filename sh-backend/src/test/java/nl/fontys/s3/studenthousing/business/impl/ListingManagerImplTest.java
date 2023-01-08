@@ -38,7 +38,7 @@ class ListingManagerImplTest {
 
     @Test
     void getFilteredListings_filterOnMinSurfaceArea() {
-        int minArea = 16;
+        double minArea = 16;
         when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).surfaceArea(minArea).build(), Listing.builder().id(2L).surfaceArea(minArea-1).build()));
 
         List<Listing> actual = listingManager.getFilteredListings(minArea, null, null, null);
@@ -93,7 +93,7 @@ class ListingManagerImplTest {
                 .city("Eindhoven")
                 .description("very cool room")
                 .neighborhood("Neigh")
-                .surfaceArea(15)
+                .surfaceArea(15d)
                 .rent(300.50)
                 .isActive(true)
                 .petsAllowed(true)
