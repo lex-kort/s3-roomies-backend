@@ -21,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Component
 public class IsAuthenticatedAspect {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(IsAuthenticatedAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IsAuthenticatedAspect.class);
 
     @Pointcut("@annotation(nl.fontys.s3.studenthousing.core.configuration.security.isauthenticated.IsAuthenticated)")
     public void annotatedMethod() {

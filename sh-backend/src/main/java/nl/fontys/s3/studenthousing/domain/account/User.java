@@ -1,6 +1,5 @@
 package nl.fontys.s3.studenthousing.domain.account;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

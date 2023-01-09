@@ -1,7 +1,6 @@
 package nl.fontys.s3.studenthousing.persistence.entity.account;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

@@ -22,20 +22,20 @@ public class UserController {
     private final AccessToken accessToken;
 
     @PutMapping("register")
-    public ResponseEntity registerAccount(@RequestBody @Valid UserDTO dto){
+    public ResponseEntity<UserDTO> registerAccount(@RequestBody @Valid UserDTO dto){
         UserDTO user;
         try{
             user = UserConverter.convertToDTO(userManager.registerUser(UserConverter.convertToDomain(dto)));
         }
         catch(EmailAlreadyTakenException e){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("This email is already taken");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.ok(user);
     }
 
     @IsAuthenticated
     @GetMapping
-    public ResponseEntity getAccountSummary(){
+    public ResponseEntity<UserDTO> getAccountSummary(){
         UserDTO user;
         try{
             user = UserConverter.convertToDTO(userManager.getUser(accessToken.getUserId()));

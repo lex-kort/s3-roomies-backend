@@ -17,7 +17,7 @@ public class ResponseController {
 
     @IsAuthenticated
     @PostMapping("{id}")
-    private ResponseEntity respondToListing(@PathVariable("id") Long id){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> respondToListing(@PathVariable("id") Long id){
+        return ResponseEntity.ok("Response success");
     }
 }

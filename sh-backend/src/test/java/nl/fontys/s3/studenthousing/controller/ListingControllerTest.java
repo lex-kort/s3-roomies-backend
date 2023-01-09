@@ -62,8 +62,8 @@ class ListingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(result -> {
                     assertNull(result.getResponse().getContentType());
-                    assertEquals(result.getResponse().getContentLength(), 0);
-                    assertEquals(result.getResponse().getContentAsString(), "");
+                    assertEquals(0, result.getResponse().getContentLength());
+                    assertEquals("", result.getResponse().getContentAsString());
                 });
 
         verify(mockManager).getActiveListings();
@@ -72,17 +72,13 @@ class ListingControllerTest {
     @Test
     void getFilteredListings_shouldReturn200Response_withListingsFiltered_onRentAndSurfaceArea() throws Exception {
         List<Listing> response = List.of(
-//                ListingDTO.builder().id(1L).address("Windmolenstraat 1").city("Eindhoven").rent(300.30).surfaceArea(19d).petsAllowed(true).neighborhood("Strijp").build(),
-                Listing.builder().id(2L).address("Windmolenstraat 3").city("Eindhoven").rent(302.50).surfaceArea(20.5).petsAllowed(false).neighborhood("Strijp").build(),
-                Listing.builder().id(3L).address("Langdonkstraat 6").city("Eindhoven").rent(305d).surfaceArea(20d).petsAllowed(true).neighborhood("Woensel").build()
-//                ListingDTO.builder().id(4L).address("Langdonkstraat 8").city("Eindhoven").rent(310.30).surfaceArea(21d).petsAllowed(false).neighborhood("Woensel").build()
+                Listing.builder().id(1L).address("Windmolenstraat 3").city("Eindhoven").rent(302.50).surfaceArea(20.5).petsAllowed(false).neighborhood("Strijp").build(),
+                Listing.builder().id(2L).address("Langdonkstraat 6").city("Eindhoven").rent(305d).surfaceArea(20d).petsAllowed(true).neighborhood("Woensel").build()
         );
         Double minArea = 20d;
         Double maxRent = 305d;
-        Boolean pets = null;
-        String neighborhood = null;
 
-        when(mockManager.getFilteredListings(minArea, maxRent, pets, neighborhood)).thenReturn(response);
+        when(mockManager.getFilteredListings(minArea, maxRent, null, null)).thenReturn(response);
 
         mockMvc.perform(post("/api/listings")
                         .param("minArea", minArea.toString())
@@ -91,10 +87,10 @@ class ListingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type", APPLICATION_JSON_VALUE))
                 .andExpect(content().json("""
-                                                    [{"id": 2, "address": "Windmolenstraat 3", "city": "Eindhoven", "rent": 302.50, "surfaceArea": 20.5, "petsAllowed": false, "neighborhood": "Strijp"}, 
-                                                    {"id": 3, "address": "Langdonkstraat 6", "city": "Eindhoven", "rent": 305, "surfaceArea": 20, "petsAllowed": true, "neighborhood": "Woensel"}]
+                                                    [{"id": 1, "address": "Windmolenstraat 3", "city": "Eindhoven", "rent": 302.50, "surfaceArea": 20.5, "petsAllowed": false, "neighborhood": "Strijp"}, 
+                                                    {"id": 2, "address": "Langdonkstraat 6", "city": "Eindhoven", "rent": 305, "surfaceArea": 20, "petsAllowed": true, "neighborhood": "Woensel"}]
                                                     """));
-        verify(mockManager).getFilteredListings(minArea, maxRent, pets, neighborhood);
+        verify(mockManager).getFilteredListings(minArea, maxRent, null, null);
     }
 
     @Test
@@ -119,8 +115,8 @@ class ListingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(result -> {
                     assertNull(result.getResponse().getContentType());
-                    assertEquals(result.getResponse().getContentLength(), 0);
-                    assertEquals(result.getResponse().getContentAsString(), "");
+                    assertEquals(0, result.getResponse().getContentLength());
+                    assertEquals("", result.getResponse().getContentAsString());
                 });
 
         verify(mockManager).getFilteredListings(minArea, maxRent, pets, neighborhood);
@@ -152,8 +148,8 @@ class ListingControllerTest {
                 .andExpect(
                         result -> {
                             assertNull(result.getResponse().getContentType());
-                            assertEquals(result.getResponse().getContentLength(), 0);
-                            assertEquals(result.getResponse().getContentAsString(), "");
+                            assertEquals(0, result.getResponse().getContentLength());
+                            assertEquals("", result.getResponse().getContentAsString());
                         }
                 );
         verify(mockManager).getListing(1L);

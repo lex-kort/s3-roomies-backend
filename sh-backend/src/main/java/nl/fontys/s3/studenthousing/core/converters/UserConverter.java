@@ -14,7 +14,6 @@ public class UserConverter {
 
     public static User convertToDomain(UserDTO user){
         UserRoles role = getRole(user.getUserRole());
-//        String role = user.getUserRole();
         switch(role){
             default:
             case STUDENT:
@@ -49,7 +48,6 @@ public class UserConverter {
 
     public static User convertToDomain(UserEntity user){
         UserRoles role = getRole(user.getUserRole());
-//        String role = user.getUserRole();
         switch(role){
             default:
             case STUDENT:
@@ -88,7 +86,6 @@ public class UserConverter {
 
     public static UserDTO convertToDTO(User user){
         UserRoles role = user.getUserRole();
-//        String role = user.getUserRole();
         switch(role){
             default:
             case STUDENT:
@@ -125,7 +122,6 @@ public class UserConverter {
 
     public static UserEntity convertToEntity(User user){
         UserRoles role = user.getUserRole();
-//        String role = user.getUserRole();
         switch(role){
             default:
             case STUDENT:
