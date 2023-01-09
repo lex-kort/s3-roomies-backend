@@ -1,6 +1,5 @@
 package nl.fontys.s3.studenthousing.controller;
 
-import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
 import nl.fontys.s3.studenthousing.core.interfaces.LoginManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

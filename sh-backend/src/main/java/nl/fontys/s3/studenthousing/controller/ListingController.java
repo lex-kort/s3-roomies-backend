@@ -23,7 +23,7 @@ public class ListingController {
     public ResponseEntity<List<ListingDTO>> getActiveListings(){
         List<Listing> listings = listingManager.getActiveListings();
         if(listings.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.ok(listings.stream().map(ListingConverter::convertToDTO).toList());
     }

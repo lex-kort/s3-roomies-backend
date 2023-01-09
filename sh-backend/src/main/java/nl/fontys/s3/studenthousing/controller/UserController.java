@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @IsAuthenticated
-    @GetMapping()
+    @GetMapping
     public ResponseEntity getAccountSummary(){
         UserDTO user;
         try{
