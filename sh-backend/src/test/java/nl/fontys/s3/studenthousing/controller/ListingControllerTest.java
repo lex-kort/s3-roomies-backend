@@ -95,18 +95,10 @@ class ListingControllerTest {
 
     @Test
     void getFilteredListings_shouldReturn200Response_withNoListingsFound_onGivenRentAndSurfaceArea() throws Exception {
-        List<Listing> response = List.of(
-//                Listing.builder().id(1L).address("Windmolenstraat 1").city("Eindhoven").rent(300.30).surfaceArea(19d).petsAllowed(true).neighborhood("Strijp").build(),
-                Listing.builder().id(2L).address("Windmolenstraat 3").city("Eindhoven").rent(302.50).surfaceArea(20.5).petsAllowed(false).neighborhood("Strijp").build(),
-                Listing.builder().id(3L).address("Langdonkstraat 6").city("Eindhoven").rent(305d).surfaceArea(20d).petsAllowed(true).neighborhood("Woensel").build()
-//                Listing.builder().id(4L).address("Langdonkstraat 8").city("Eindhoven").rent(310.30).surfaceArea(21d).petsAllowed(false).neighborhood("Woensel").build()
-        );
         Double minArea = 20d;
         Double maxRent = 305d;
-        Boolean pets = null;
-        String neighborhood = null;
 
-        when(mockManager.getFilteredListings(minArea, maxRent, pets, neighborhood)).thenReturn(Collections.<Listing>emptyList());
+        when(mockManager.getFilteredListings(minArea, maxRent, null, null)).thenReturn(Collections.<Listing>emptyList());
 
         mockMvc.perform(post("/api/listings")
                         .param("minArea", minArea.toString())
@@ -119,7 +111,7 @@ class ListingControllerTest {
                     assertEquals("", result.getResponse().getContentAsString());
                 });
 
-        verify(mockManager).getFilteredListings(minArea, maxRent, pets, neighborhood);
+        verify(mockManager).getFilteredListings(minArea, maxRent, null, null);
     }
 
     @Test
