@@ -1,5 +1,6 @@
 package nl.fontys.s3.studenthousing.domain.account;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -10,6 +11,7 @@ import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 // https://www.baeldung.com/lombok-builder-inheritance
 @SuperBuilder
 @Getter
+@EqualsAndHashCode
 public abstract class User {
     private Long id;
     private String name;
