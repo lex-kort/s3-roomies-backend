@@ -1,6 +1,5 @@
-package nl.fontys.s3.studenthousing.business.impl;
+package nl.fontys.s3.studenthousing.business;
 
-import nl.fontys.s3.studenthousing.business.ListingManagerImpl;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
 import nl.fontys.s3.studenthousing.domain.Listing;
