@@ -26,7 +26,7 @@ public class ListingRepositoryImpl implements ListingRepository {
     }
 
     @Override
-    public Listing getById(Long id){
+    public Listing findById(Long id){
         Optional<ListingEntity> optionalListing;
         try{
             optionalListing = listingJPA.findById(id).stream()

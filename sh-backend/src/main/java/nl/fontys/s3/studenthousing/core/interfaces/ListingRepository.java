@@ -9,5 +9,5 @@ public interface ListingRepository {
 
     void createListing(Listing listing);
 
-    Listing getById(Long id);
+    Listing findById(Long id);
 }

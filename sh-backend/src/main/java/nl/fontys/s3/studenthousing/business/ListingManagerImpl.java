@@ -40,6 +40,6 @@ public class ListingManagerImpl implements ListingManager {
 
     @Override
     public Listing getListing(Long id) {
-        return repository.getById(id);
+        return repository.findById(id);
     }
 }

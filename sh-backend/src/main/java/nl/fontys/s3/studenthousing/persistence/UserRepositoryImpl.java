@@ -29,6 +29,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findById(Long userId) {
         Optional<UserEntity> user = userJPA.findById(userId);
-        return !user.isEmpty() ? UserConverter.convertToDomain(user.get()) : null;
+        return user.map(UserConverter::convertToDomain).orElse(null);
     }
 }

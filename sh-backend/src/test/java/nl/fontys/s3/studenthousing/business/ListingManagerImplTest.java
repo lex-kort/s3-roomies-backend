@@ -98,23 +98,23 @@ class ListingManagerImplTest {
                 .petsAllowed(true)
                 .build();
 
-        when(mockRepo.getById(id)).thenReturn(expectedListing);
+        when(mockRepo.findById(id)).thenReturn(expectedListing);
 
         Listing actualListing = listingManager.getListing(id);
 
         assertEquals(expectedListing.getId(), actualListing.getId());
         assertEquals(Listing.class, actualListing.getClass());
-        verify(mockRepo).getById(id);
+        verify(mockRepo).findById(id);
     }
 
     @Test
     void getListing_invalidID() {
         Long id = 100L;
-        when(mockRepo.getById(100L)).thenThrow(InvalidListingIDException.class);
+        when(mockRepo.findById(100L)).thenThrow(InvalidListingIDException.class);
 
         assertThrows(InvalidListingIDException.class, () -> {
             listingManager.getListing(id);
         });
-        verify(mockRepo).getById(id);
+        verify(mockRepo).findById(id);
     }
 }

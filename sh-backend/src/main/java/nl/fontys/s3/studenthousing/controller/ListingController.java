@@ -6,7 +6,6 @@ import nl.fontys.s3.studenthousing.core.converters.ListingConverter;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
 import nl.fontys.s3.studenthousing.domain.Listing;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,13 +40,13 @@ public class ListingController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Listing> getListing(@PathVariable("id") Long id){
-        Listing listing;
+    public ResponseEntity<ListingDTO> getListing(@PathVariable("id") Long id){
+        ListingDTO listing;
         try{
-            listing = listingManager.getListing(id);
+            listing = ListingConverter.convertToDTO(listingManager.getListing(id));
         }
         catch(InvalidListingIDException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(listing);
     }
