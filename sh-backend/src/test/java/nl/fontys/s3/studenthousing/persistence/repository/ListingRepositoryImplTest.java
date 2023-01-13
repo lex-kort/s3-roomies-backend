@@ -1,8 +1,10 @@
 package nl.fontys.s3.studenthousing.persistence.repository;
 
+import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingJPA;
 import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.domain.account.Landlord;
 import nl.fontys.s3.studenthousing.persistence.ListingRepositoryImpl;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import nl.fontys.s3.studenthousing.persistence.entity.account.LandlordEntity;
@@ -32,10 +34,11 @@ class ListingRepositoryImplTest {
         Long ownerId = 1L;
         LandlordEntity owner = LandlordEntity.builder()
                 .id(ownerId)
+                .userRole(UserRoles.LANDLORD.toString())
                 .build();
 
         List<ListingEntity> entities = List.of(ListingEntity.builder().id(1L).owner(owner).isActive(true).build());
-        List<Listing> expected = List.of(Listing.builder().id(1L).ownerId(ownerId).isActive(true).build());
+        List<Listing> expected = List.of(Listing.builder().id(1L).owner(Landlord.builder().id(ownerId).userRole(UserRoles.LANDLORD).build()).isActive(true).build());
 
         when(mockJPA.findByIsActiveTrue()).thenReturn(entities);
 
@@ -50,6 +53,7 @@ class ListingRepositoryImplTest {
         Long ownerId = 1L;
         LandlordEntity owner = LandlordEntity.builder()
                 .id(ownerId)
+                .userRole(UserRoles.LANDLORD.toString())
                 .build();
 
         Long listingId = 1L;
@@ -68,7 +72,7 @@ class ListingRepositoryImplTest {
 
         Listing expectedListing = Listing.builder()
                 .id(listingId)
-                .ownerId(ownerId)
+                .owner(Landlord.builder().id(ownerId).userRole(UserRoles.LANDLORD).build())
                 .address("Coolstreet 1 a")
                 .city("Eindhoven")
                 .description("very cool room")
@@ -81,7 +85,7 @@ class ListingRepositoryImplTest {
 
         when(mockJPA.findById(listingId)).thenReturn(Optional.ofNullable(listingEntity));
 
-        Listing actualListing = listingRepository.getById(listingId);
+        Listing actualListing = listingRepository.findById(listingId);
 
         assertEquals(expectedListing, actualListing);
         assertEquals(Listing.class, actualListing.getClass());
@@ -94,7 +98,7 @@ class ListingRepositoryImplTest {
         when(mockJPA.findById(100L)).thenReturn(Optional.empty());
 
         assertThrows(InvalidListingIDException.class, () -> {
-            listingRepository.getById(id);
+            listingRepository.findById(id);
         });
         verify(mockJPA).findById(id);
     }

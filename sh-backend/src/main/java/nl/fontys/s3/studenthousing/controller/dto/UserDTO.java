@@ -27,7 +27,6 @@ public class UserDTO {
     private String surname;
     @NotBlank
     private String phoneNumber;
-    @NotBlank
     private String userRole;
     private String studentNumber;
     private String companyName;

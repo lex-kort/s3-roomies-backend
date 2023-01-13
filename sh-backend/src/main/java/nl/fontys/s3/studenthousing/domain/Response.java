@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import nl.fontys.s3.studenthousing.domain.account.User;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -16,7 +16,7 @@ public class Response {
     private Long id;
     private User user;
     private Listing listing;
-    private Date responseDate;
-    private Integer position;
+    private LocalDateTime responseDate;
+    private Long position;
     private Boolean hasAccepted;
 }

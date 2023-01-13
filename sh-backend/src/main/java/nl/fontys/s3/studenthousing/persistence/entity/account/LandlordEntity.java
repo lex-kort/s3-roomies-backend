@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -34,6 +31,6 @@ public class LandlordEntity extends UserEntity{
     @Column(name = "city")
     private String city;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
     private List<ListingEntity> listings;
 }

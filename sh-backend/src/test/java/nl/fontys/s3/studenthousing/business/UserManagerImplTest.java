@@ -69,11 +69,11 @@ class UserManagerImplTest {
 
     @Test
     void getUser_withInvalidID(){
-        when(mockRepo.findById(user.getId())).thenReturn(null);
+        when(mockRepo.findById(1L)).thenReturn(null);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            userManager.getUser(user.getId());
+            userManager.getUser(1L);
         });
-        verify(mockRepo).findById(user.getId());
+        verify(mockRepo).findById(1L);
     }
 }
