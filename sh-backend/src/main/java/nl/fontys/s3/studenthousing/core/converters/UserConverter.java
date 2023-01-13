@@ -12,8 +12,7 @@ import nl.fontys.s3.studenthousing.persistence.entity.account.UserEntity;
 public class UserConverter {
     private UserConverter(){}
 
-    public static User convertToDomain(UserDTO user){
-        UserRoles role = getRole(user.getUserRole());
+    public static User convertToDomain(UserDTO user, UserRoles role){
         switch(role){
             default:
             case STUDENT:

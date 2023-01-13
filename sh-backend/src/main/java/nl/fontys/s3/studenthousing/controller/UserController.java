@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nl.fontys.s3.studenthousing.controller.dto.UserDTO;
 import nl.fontys.s3.studenthousing.core.configuration.security.isauthenticated.IsAuthenticated;
 import nl.fontys.s3.studenthousing.core.converters.UserConverter;
+import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 import nl.fontys.s3.studenthousing.core.exceptions.EmailAlreadyTakenException;
 import nl.fontys.s3.studenthousing.core.interfaces.UserManager;
 import nl.fontys.s3.studenthousing.domain.AccessToken;
@@ -25,7 +26,7 @@ public class UserController {
     public ResponseEntity<UserDTO> registerAccount(@RequestBody @Valid UserDTO dto){
         UserDTO user;
         try{
-            user = UserConverter.convertToDTO(userManager.registerUser(UserConverter.convertToDomain(dto)));
+            user = UserConverter.convertToDTO(userManager.registerUser(UserConverter.convertToDomain(dto, UserRoles.STUDENT)));
         }
         catch(EmailAlreadyTakenException e){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
