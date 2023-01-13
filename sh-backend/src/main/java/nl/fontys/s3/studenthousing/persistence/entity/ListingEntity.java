@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "listing")
@@ -37,7 +37,7 @@ public class ListingEntity {
     @Column(name = "neighborhood")
     private String neighborhood;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "owner_id")
     private LandlordEntity owner;
 
@@ -48,7 +48,7 @@ public class ListingEntity {
 
     @NotBlank
     @Column(name = "surface_area")
-    private Integer surfaceArea; // In square meters
+    private Double surfaceArea; // In square meters
 
     @NotBlank
     @Column(name = "rent")
@@ -71,5 +71,5 @@ public class ListingEntity {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "listing")
-    private List<ResponseEntity> responses;
+    private Set<ResponseEntity> responses;
 }

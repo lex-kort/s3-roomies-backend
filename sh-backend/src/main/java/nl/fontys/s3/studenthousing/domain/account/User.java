@@ -11,6 +11,7 @@ import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 // https://www.baeldung.com/lombok-builder-inheritance
 @SuperBuilder
 @Getter
+@EqualsAndHashCode
 public abstract class User {
     private Long id;
     private String name;

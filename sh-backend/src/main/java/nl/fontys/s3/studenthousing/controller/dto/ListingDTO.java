@@ -14,7 +14,7 @@ public class ListingDTO {
     private String city;
     private String neighborhood;
     private String description;
-    private Integer surfaceArea; // In square meters
+    private Double surfaceArea; // In square meters
     private Double rent; // In Euro's
     private Boolean petsAllowed;
     private Boolean isActive;

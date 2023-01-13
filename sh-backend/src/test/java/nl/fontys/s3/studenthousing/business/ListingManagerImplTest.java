@@ -1,6 +1,5 @@
-package nl.fontys.s3.studenthousing.business.impl;
+package nl.fontys.s3.studenthousing.business;
 
-import nl.fontys.s3.studenthousing.business.ListingManagerImpl;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingRepository;
 import nl.fontys.s3.studenthousing.domain.Listing;
@@ -38,7 +37,7 @@ class ListingManagerImplTest {
 
     @Test
     void getFilteredListings_filterOnMinSurfaceArea() {
-        int minArea = 16;
+        double minArea = 16;
         when(mockRepo.getActiveListings()).thenReturn(List.of(Listing.builder().id(1L).surfaceArea(minArea).build(), Listing.builder().id(2L).surfaceArea(minArea-1).build()));
 
         List<Listing> actual = listingManager.getFilteredListings(minArea, null, null, null);
@@ -93,29 +92,29 @@ class ListingManagerImplTest {
                 .city("Eindhoven")
                 .description("very cool room")
                 .neighborhood("Neigh")
-                .surfaceArea(15)
+                .surfaceArea(15d)
                 .rent(300.50)
                 .isActive(true)
                 .petsAllowed(true)
                 .build();
 
-        when(mockRepo.getById(id)).thenReturn(expectedListing);
+        when(mockRepo.findById(id)).thenReturn(expectedListing);
 
         Listing actualListing = listingManager.getListing(id);
 
         assertEquals(expectedListing.getId(), actualListing.getId());
         assertEquals(Listing.class, actualListing.getClass());
-        verify(mockRepo).getById(id);
+        verify(mockRepo).findById(id);
     }
 
     @Test
     void getListing_invalidID() {
         Long id = 100L;
-        when(mockRepo.getById(100L)).thenThrow(InvalidListingIDException.class);
+        when(mockRepo.findById(100L)).thenThrow(InvalidListingIDException.class);
 
         assertThrows(InvalidListingIDException.class, () -> {
             listingManager.getListing(id);
         });
-        verify(mockRepo).getById(id);
+        verify(mockRepo).findById(id);
     }
 }

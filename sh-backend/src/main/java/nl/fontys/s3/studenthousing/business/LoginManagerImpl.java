@@ -32,7 +32,6 @@ public class LoginManagerImpl implements LoginManager {
         return generateAccessToken(user);
     }
 
-
     private String generateAccessToken(User user) {
         List<String> roles = List.of(user.getUserRole().toString());
         return accessTokenEncoder.encode(

@@ -27,17 +27,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.8'
-//    implementation 'mysql:mysql-connector-java:8.0.30'
     implementation 'org.flywaydb:flyway-core:9.8.3'
     implementation 'org.flywaydb:flyway-mysql:9.8.3'
-
-
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
@@ -47,7 +43,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.1.5'
     testImplementation 'org.springframework.security:spring-security-test'
-//    testImplementation 'com.playtika.testcontainers:embedded-mysql:2.2.12'
     testImplementation 'com.playtika.testcontainers:embedded-mariadb:2.2.12'
 }
 
@@ -60,7 +55,7 @@ sonarqube {
     properties {
         property "sonar.projectKey", "I488027_s3-roomies-backend_AYSqQC-gyjvjNUpzEnhF"
         property "sonar.qualitygate.wait", true
-        property "sonar.coverage.exclusions", "**/core/configuration/**"
+        property "sonar.coverage.exclusions", "**/core/configuration/**/*"
     }
 }
 
@@ -71,7 +66,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ["**/configuration/*"])
+            fileTree(dir: it, exclude: ["**/core/configuration/**/*"])
         }))
     }
 }

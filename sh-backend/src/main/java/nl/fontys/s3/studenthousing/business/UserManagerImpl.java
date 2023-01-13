@@ -15,8 +15,6 @@ public class UserManagerImpl implements UserManager {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    private AccessToken requestToken;
-
     @Override
     public User registerUser(User user){
         User found = userRepository.findByEmail(user.getEmail());
