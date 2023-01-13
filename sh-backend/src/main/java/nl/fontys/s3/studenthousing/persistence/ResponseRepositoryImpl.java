@@ -1,10 +1,7 @@
 package nl.fontys.s3.studenthousing.persistence;
 
 import lombok.RequiredArgsConstructor;
-import nl.fontys.s3.studenthousing.controller.dto.ResponseDTO;
-import nl.fontys.s3.studenthousing.core.converters.ListingConverter;
 import nl.fontys.s3.studenthousing.core.converters.ResponseConverter;
-import nl.fontys.s3.studenthousing.core.converters.UserConverter;
 import nl.fontys.s3.studenthousing.core.interfaces.ResponseJPA;
 import nl.fontys.s3.studenthousing.core.interfaces.ResponseRepository;
 import nl.fontys.s3.studenthousing.domain.Response;

@@ -2,14 +2,12 @@ package nl.fontys.s3.studenthousing.controller;
 
 import lombok.RequiredArgsConstructor;
 import nl.fontys.s3.studenthousing.controller.dto.ResponseDTO;
-import nl.fontys.s3.studenthousing.controller.dto.UserDTO;
 import nl.fontys.s3.studenthousing.core.configuration.security.isauthenticated.IsAuthenticated;
 import nl.fontys.s3.studenthousing.core.converters.ResponseConverter;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidCredentialsException;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ResponseManager;
 import nl.fontys.s3.studenthousing.domain.AccessToken;
-import nl.fontys.s3.studenthousing.domain.account.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +29,6 @@ public class ResponseController {
     @PostMapping("{listingId}")
     public ResponseEntity<ResponseDTO> respondToListing(@PathVariable("listingId") Long listingId){
         ResponseDTO response;
-        System.out.println(accessToken.getUserId());
         try{
             response = ResponseConverter.convertToDTO(responseManager.respondToListing(listingId, accessToken.getUserId()));
         }

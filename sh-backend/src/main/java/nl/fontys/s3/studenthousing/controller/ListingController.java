@@ -6,7 +6,6 @@ import nl.fontys.s3.studenthousing.core.converters.ListingConverter;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
 import nl.fontys.s3.studenthousing.domain.Listing;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

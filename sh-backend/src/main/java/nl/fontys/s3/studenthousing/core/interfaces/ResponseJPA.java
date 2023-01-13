@@ -1,6 +1,5 @@
 package nl.fontys.s3.studenthousing.core.interfaces;
 
-import nl.fontys.s3.studenthousing.persistence.entity.ListingEntity;
 import nl.fontys.s3.studenthousing.persistence.entity.ResponseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
