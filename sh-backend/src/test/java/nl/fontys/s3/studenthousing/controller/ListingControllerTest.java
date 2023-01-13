@@ -1,8 +1,10 @@
 package nl.fontys.s3.studenthousing.controller;
 
+import nl.fontys.s3.studenthousing.core.enums.UserRoles;
 import nl.fontys.s3.studenthousing.core.exceptions.InvalidListingIDException;
 import nl.fontys.s3.studenthousing.core.interfaces.ListingManager;
 import nl.fontys.s3.studenthousing.domain.Listing;
+import nl.fontys.s3.studenthousing.domain.account.Landlord;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +39,8 @@ class ListingControllerTest {
     @Test
     void getActiveListings_shouldReturn200Response_withAllActiveListings() throws Exception {
         List<Listing> response = List.of(
-                Listing.builder().id(1L).address("Windmolenstraat 1").city("Eindhoven").rent(300.30).build(),
-                Listing.builder().id(2L).address("Windmolenstraat 3").city("Eindhoven").rent(310.30).build()
+                Listing.builder().id(1L).address("Windmolenstraat 1").city("Eindhoven").owner(Landlord.builder().id(1L).userRole(UserRoles.LANDLORD).build()).rent(300.30).build(),
+                Listing.builder().id(2L).address("Windmolenstraat 3").city("Eindhoven").owner(Landlord.builder().id(1L).userRole(UserRoles.LANDLORD).build()).rent(310.30).build()
         );
 
         when(mockManager.getActiveListings()).thenReturn(response);
@@ -72,8 +74,8 @@ class ListingControllerTest {
     @Test
     void getFilteredListings_shouldReturn200Response_withListingsFiltered_onRentAndSurfaceArea() throws Exception {
         List<Listing> response = List.of(
-                Listing.builder().id(1L).address("Windmolenstraat 3").city("Eindhoven").rent(302.50).surfaceArea(20.5).petsAllowed(false).neighborhood("Strijp").build(),
-                Listing.builder().id(2L).address("Langdonkstraat 6").city("Eindhoven").rent(305d).surfaceArea(20d).petsAllowed(true).neighborhood("Woensel").build()
+                Listing.builder().id(1L).address("Windmolenstraat 3").city("Eindhoven").rent(302.50).surfaceArea(20.5).petsAllowed(false).neighborhood("Strijp").owner(Landlord.builder().id(1L).userRole(UserRoles.LANDLORD).build()).build(),
+                Listing.builder().id(2L).address("Langdonkstraat 6").city("Eindhoven").rent(305d).surfaceArea(20d).petsAllowed(true).neighborhood("Woensel").owner(Landlord.builder().id(1L).userRole(UserRoles.LANDLORD).build()).build()
         );
         Double minArea = 20d;
         Double maxRent = 305d;
@@ -87,7 +89,7 @@ class ListingControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type", APPLICATION_JSON_VALUE))
                 .andExpect(content().json("""
-                                                    [{"id": 1, "address": "Windmolenstraat 3", "city": "Eindhoven", "rent": 302.50, "surfaceArea": 20.5, "petsAllowed": false, "neighborhood": "Strijp"}, 
+                                                    [{"id": 1, "address": "Windmolenstraat 3", "city": "Eindhoven", "rent": 302.50, "surfaceArea": 20.5, "petsAllowed": false, "neighborhood": "Strijp"},
                                                     {"id": 2, "address": "Langdonkstraat 6", "city": "Eindhoven", "rent": 305, "surfaceArea": 20, "petsAllowed": true, "neighborhood": "Woensel"}]
                                                     """));
         verify(mockManager).getFilteredListings(minArea, maxRent, null, null);
@@ -116,7 +118,7 @@ class ListingControllerTest {
 
     @Test
     void getListing_shouldReturn200Response_withListingDetails() throws Exception{
-        Listing listing = Listing.builder().id(1L).address("Windmolenstraat 1").city("Eindhoven").rent(300.30).surfaceArea(19d).petsAllowed(true).neighborhood("Strijp").build();
+        Listing listing = Listing.builder().id(1L).address("Windmolenstraat 1").city("Eindhoven").rent(300.30).surfaceArea(19d).petsAllowed(true).neighborhood("Strijp").owner(Landlord.builder().id(1L).userRole(UserRoles.LANDLORD).build()).build();
 
         when(mockManager.getListing(1L)).thenReturn(listing);
 

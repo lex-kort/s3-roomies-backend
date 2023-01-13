@@ -5,6 +5,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class InvalidListingIDException extends ResponseStatusException {
     public InvalidListingIDException() {
-        super(HttpStatus.NOT_FOUND, "INVALID_OBJECT_ID");
+        super(HttpStatus.NOT_FOUND, "INVALID_LISTING_ID");
     }
 }
