@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,5 +26,5 @@ public class StudentEntity extends UserEntity{
     @Column(name = "signup_date")
     private Date signupDate;
     @OneToMany(mappedBy = "user")
-    private List<ResponseEntity> responses;
+    private Set<ResponseEntity> responses;
 }

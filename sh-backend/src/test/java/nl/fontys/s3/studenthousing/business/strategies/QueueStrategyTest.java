@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -51,21 +52,21 @@ class QueueStrategyTest {
                 .id(1L)
                 .user(studentOne)
                 .listing(listing)
-                .responseDate(new Date(122, Calendar.MAY, 12, 12, 0, 0))
+                .responseDate(LocalDateTime.of(2022, 5, 12, 12, 0))
                 .build();
 
         Response responseTwo = Response.builder()
                 .id(2L)
                 .user(studentTwo)
                 .listing(listing)
-                .responseDate(new Date(122, Calendar.MAY, 14, 6, 45, 0))
+                .responseDate(LocalDateTime.of(2022, 5, 14, 6, 45))
                 .build();
 
         Response responseThree = Response.builder()
                 .id(3L)
                 .user(studentThree)
                 .listing(listing)
-                .responseDate(new Date(122, Calendar.FEBRUARY, 27, 18, 30, 0))
+                .responseDate(LocalDateTime.of(2022, 2, 27, 18, 30))
                 .build();
 
         List<Response> input = List.of(responseOne, responseTwo, responseThree);
@@ -101,21 +102,21 @@ class QueueStrategyTest {
                 .id(1L)
                 .user(studentOne)
                 .listing(listing)
-                .responseDate(new Date(122, Calendar.MAY, 12, 12, 0, 0))
+                .responseDate(LocalDateTime.of(2022, 5, 12, 12, 0))
                 .build();
 
         Response responseTwo = Response.builder()
                 .id(2L)
                 .user(studentTwo)
                 .listing(listing)
-                .responseDate(new Date(122, Calendar.MAY, 14, 6, 45, 0))
+                .responseDate(LocalDateTime.of(2022, 5, 14, 6, 45))
                 .build();
 
         Response responseThree = Response.builder()
                 .id(3L)
                 .user(landlord)
                 .listing(listing)
-                .responseDate(new Date(122, Calendar.FEBRUARY, 27, 18, 30, 0))
+                .responseDate(LocalDateTime.of(2022, 2, 27, 18, 30))
                 .build();
 
         List<Response> input = List.of(responseOne, responseTwo, responseThree);

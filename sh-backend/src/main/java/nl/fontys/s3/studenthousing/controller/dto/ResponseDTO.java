@@ -1,14 +1,21 @@
 package nl.fontys.s3.studenthousing.controller.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Builder
-@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDTO {
-    private Long listingId;
+    private Long id;
+    @NotBlank
+    private Long userId;
+    @NotBlank
+    private ListingDTO listing;
+    private String responseDate;
+    private Long position;
+    private Boolean hasAccepted;
 }

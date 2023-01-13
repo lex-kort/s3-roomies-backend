@@ -40,7 +40,6 @@ class LoginControllerTest {
                 .build();
 
         when(mockManager.authenticate(login)).thenReturn("It's a JWT token!");
-
         mockMvc.perform(post("/api/login")
                         .content(" { \"email\": \"generic@email.com\", \"password\": \"abcde\" } ")
                         .contentType(APPLICATION_JSON_VALUE)

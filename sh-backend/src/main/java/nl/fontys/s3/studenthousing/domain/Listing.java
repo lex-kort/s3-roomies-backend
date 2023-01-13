@@ -2,6 +2,7 @@ package nl.fontys.s3.studenthousing.domain;
 
 import lombok.*;
 import nl.fontys.s3.studenthousing.core.enums.OrderType;
+import nl.fontys.s3.studenthousing.domain.account.Landlord;
 
 @Builder
 @AllArgsConstructor
@@ -9,7 +10,7 @@ import nl.fontys.s3.studenthousing.core.enums.OrderType;
 @EqualsAndHashCode
 public class Listing {
     private Long id;
-    private Long ownerId;
+    private Landlord owner;
     @Setter
     private String address;
     @Setter
@@ -25,6 +26,7 @@ public class Listing {
     @Setter
     private Boolean petsAllowed;
     @Setter
+
     private OrderType orderType;
     @Setter
     private Boolean isActive;

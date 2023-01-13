@@ -41,13 +41,13 @@ public class ListingController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Listing> getListing(@PathVariable("id") Long id){
-        Listing listing;
+    public ResponseEntity<ListingDTO> getListing(@PathVariable("id") Long id){
+        ListingDTO listing;
         try{
-            listing = listingManager.getListing(id);
+            listing = ListingConverter.convertToDTO(listingManager.getListing(id));
         }
         catch(InvalidListingIDException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(listing);
     }
