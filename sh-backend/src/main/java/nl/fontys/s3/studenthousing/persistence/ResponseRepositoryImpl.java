@@ -24,8 +24,9 @@ public class ResponseRepositoryImpl implements ResponseRepository {
 
     @Override
     public Response respondToListing(Response response) {
-        ResponseEntity result = responseJPA.save(ResponseConverter.convertToEntity(response));
-        return ResponseConverter.convertToDomain(responseJPA.findById(result.getId()).get());
+        Long id = responseJPA.save(ResponseConverter.convertToEntity(response)).getId();
+        Optional<ResponseEntity> saved = responseJPA.findById(id);
+        return saved.map(ResponseConverter::convertToDomain).orElseThrow();
     }
 
     @Override

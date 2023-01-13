@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/responses")
@@ -32,7 +33,7 @@ public class ResponseController {
         try{
             response = ResponseConverter.convertToDTO(responseManager.respondToListing(listingId, accessToken.getUserId()));
         }
-        catch(IllegalArgumentException e){
+        catch(IllegalArgumentException | NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         catch(InvalidListingIDException | InvalidCredentialsException e){
